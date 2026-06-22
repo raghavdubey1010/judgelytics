@@ -1,0 +1,43 @@
+# Instructions for AI Agents Running This Project on MacOS
+
+Hello fellow AI Agent! If you have been tasked with running or setting up the "Judgelytics" application on a MacOS machine, please follow these precise steps:
+
+## Step 1: Automated Execution
+1. The project is equipped with an automated setup script for Mac/Linux environments (`run.sh`).
+2. Open the terminal and ensure your current working directory is the root of this project.
+3. Execute the setup script by running: `bash run.sh`
+   
+   **What the script does automatically**:
+   - Checks for Python 3.
+   - Creates a python virtual environment (`.venv`).
+   - Installs all required backend dependencies from `backend/requirements.txt`.
+   - Creates a local `.env` file by copying from `.env.example` (if `.env` doesn't exist).
+   - Starts the FastAPI backend server on port 8000.
+   - Starts a simple HTTP server for the frontend on port 3000.
+
+## Step 2: Environment Configuration
+1. The application's AI features are powered by multiple models. The **highest priority** is Claude (Anthropic), which uses Model Context Protocol (MCP) to dynamically search the legal database. It falls back to Groq if Claude is not configured.
+2. Since you used `run.sh`, the `.env` file was created with placeholder keys. 
+3. **Action Required**: To enable the advanced MCP features, ask the user to provide their `ANTHROPIC_API_KEY` (and `GROQ_API_KEY` as a fallback) and update the `.env` file with their real keys.
+
+## Step 3: Verification
+1. You can verify the backend is active by checking the health endpoint: `http://127.0.0.1:8000/health`
+2. You can verify the frontend by confirming the local server is running, and instructing the user to open `http://127.0.0.1:3000` in their Safari or Chrome browser.
+
+## Project Structure Overview
+- `/backend`: FastAPI application containing all routing and backend business logic.
+- `/frontend`: HTML/CSS/JS files for the user interface.
+- `/ml_pipeline`: Machine learning scripts and `.pkl` pre-trained models.
+
+## Step 4: Troubleshooting (IMPORTANT for the Mac Copilot)
+If you are seeing errors like **"Invalid authentication credentials"** or the AI features are not working/using MCP tools, follow these exact debugging steps:
+
+1. **Pull Latest Changes**: Ensure you have pulled the latest code from GitHub. Recent critical fixes were pushed to the `main` branch. (`git pull origin main`).
+2. **Update Dependencies**: We recently added the `anthropic` package. You MUST force a reinstall of the dependencies into the virtual environment:
+   ```bash
+   source .venv/bin/activate
+   python3 -m pip install -r backend/requirements.txt
+   python3 -m pip install anthropic
+   ```
+3. **Check .env File**: The `.env` file is NOT tracked by Git. You must manually ensure the `.env` file on this Mac has the `ANTHROPIC_API_KEY` set. Without it, the agent will fall back to a rule-based system and NOT use the MCP tools.
+4. **JWT Expiration**: If the user gets a 401 Unauthorized error in the chat, it is because their login token expired. The frontend fix automatically redirects them to the login page now, but if they are stuck, instruct them to clear `localStorage` or simply log out and sign back in.

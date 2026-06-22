@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nyaya AI Legal Assistant — Judgelytics</title>
+  <meta name="description" content="Chat with Nyaya, an AI legal assistant specialized in Indian consumer law, COPRA 2019, IPC/BNS sections, and court filing procedures." />
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    body { overflow: hidden; }
+
+    .chat-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      height: calc(100vh - var(--nav-h));
+      margin-top: var(--nav-h);
+    }
+
+    /* Sidebar */
+    .chat-sidebar {
+      background: var(--bg-secondary);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .chat-sidebar-header {
+      padding: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .quick-prompts { overflow-y: auto; flex: 1; padding: 12px; }
+    .quick-prompt-title {
+      font-size: .72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--text-muted);
+      padding: 8px 8px 6px;
+    }
+
+    .qp-btn {
+      width: 100%;
+      text-align: left;
+      background: none;
+      border: none;
+      padding: 10px 10px;
+      border-radius: 8px;
+      color: var(--text-secondary);
+      font-size: .83rem;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      transition: all var(--transition);
+      line-height: 1.4;
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+    }
+    .qp-btn:hover { background: var(--bg-card); color: var(--text-primary); }
+    .qp-btn .qp-icon { flex-shrink: 0; }
+
+    /* Header bar of chat */
+    .chat-topbar {
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(5,11,24,0.8);
+      backdrop-filter: blur(10px);
+    }
+
+    .nyaya-avatar {
+      width: 40px; height: 40px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #1a1a3e, #0f0f2e);
+      border: 1px solid rgba(108,99,255,0.3);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+      box-shadow: 0 0 16px rgba(108,99,255,0.2);
+      animation: pulse-glow 3s ease-in-out infinite;
+    }
+
+    .nyaya-status {
+      display: flex; align-items: center; gap: 6px;
+      font-size: .78rem; color: var(--success);
+    }
+    .nyaya-status .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--success); animation: blink 2s ease-in-out infinite; }
+    @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+    /* Welcome message */
+    .welcome-msg {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex: 1;
+      padding: 40px 20px;
+      text-align: center;
+      gap: 16px;
+    }
+
+    .welcome-icon {
+      width: 80px; height: 80px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #1a1a3e, #0f0f2e);
+      border: 1px solid rgba(108,99,255,0.3);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.2rem;
+      box-shadow: 0 0 40px rgba(108,99,255,0.2);
+    }
+
+    .welcome-chips {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      justify-content: center;
+      max-width: 500px;
+    }
+
+    .welcome-chip {
+      padding: 8px 14px;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      font-size: .82rem;
+      cursor: pointer;
+      transition: all var(--transition);
+      color: var(--text-secondary);
+      background: none;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .welcome-chip:hover {
+      border-color: var(--primary);
+      background: rgba(108,99,255,0.08);
+      color: var(--text-primary);
+    }
+
+    @media (max-width: 768px) {
+      .chat-layout { grid-template-columns: 1fr; }
+      .chat-sidebar { display: none; }
+      body { overflow: auto; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <div class="navbar-inner">
+    <a href="index.html" class="navbar-brand">
+      <div class="brand-icon">⚖️</div>
+      <span class="brand-name">Judge<span>lytics</span></span>
+    </a>
+    <ul class="navbar-links">
+      <li><a href="dashboard.html" id="navDashboard" style="display:none">Dashboard</a></li>
+      <li><a href="legal-library.html">Legal Library</a></li>
+      <li><a href="chat.html" class="active">AI Assistant</a></li>
+    </ul>
+    <div class="flex gap-10" style="align-items:center;">
+      <a href="login.html" class="btn btn-ghost btn-sm" id="navLogin">Sign In</a>
+      <button onclick="Auth.logout()" class="btn btn-ghost btn-sm" id="navLogout" style="display:none">Sign Out</button>
+    </div>
+  </div>
+</nav>
+
+<div class="chat-layout">
+
+  <!-- Sidebar: Quick prompts -->
+  <aside class="chat-sidebar">
+    <div class="chat-sidebar-header">
+      <div style="font-weight:700;font-size:.95rem;margin-bottom:4px;">Nyaya AI Assistant</div>
+      <div class="nyaya-status"><div class="dot"></div> Online · Consumer Law Expert</div>
+    </div>
+
+    <div class="quick-prompts">
+      <div class="quick-prompt-title">Quick Topics</div>
+
+      <button class="qp-btn" onclick="sendQuick('How do I file a consumer complaint in India?')">
+        <span class="qp-icon">📝</span> How to file a consumer complaint
+      </button>
+      <button class="qp-btn" onclick="sendQuick('What filing fees do I need to pay at the consumer commission?')">
+        <span class="qp-icon">💰</span> Filing fees for consumer cases
+      </button>
+      <button class="qp-btn" onclick="sendQuick('What documents do I need to file a consumer complaint?')">
+        <span class="qp-icon">📄</span> Documents required to file
+      </button>
+      <button class="qp-btn" onclick="sendQuick('What is the limitation period to file a consumer complaint?')">
+        <span class="qp-icon">⏰</span> Time limits & deadlines
+      </button>
+      <button class="qp-btn" onclick="sendQuick('I bought a defective product online and the seller is not giving a refund. What can I do?')">
+        <span class="qp-icon">📦</span> Online shopping refund issue
+      </button>
+      <button class="qp-btn" onclick="sendQuick('My insurance claim was rejected without proper reason. What are my rights?')">
+        <span class="qp-icon">🛡️</span> Insurance claim rejection
+      </button>
+      <button class="qp-btn" onclick="sendQuick('My bank account was hacked and money was transferred. What should I do?')">
+        <span class="qp-icon">🏦</span> Banking fraud / UPI scam
+      </button>
+      <button class="qp-btn" onclick="sendQuick('The builder has delayed possession of my flat by 2 years. What are my options?')">
+        <span class="qp-icon">🏗️</span> Builder delay in possession
+      </button>
+      <button class="qp-btn" onclick="sendQuick('Can I represent myself at the consumer court without a lawyer?')">
+        <span class="qp-icon">⚖️</span> Do I need a lawyer?
+      </button>
+      <button class="qp-btn" onclick="sendQuick('What is Section 35 of COPRA 2019?')">
+        <span class="qp-icon">📜</span> Section 35 COPRA 2019
+      </button>
+
+      <div class="quick-prompt-title" style="margin-top:12px;">Resources</div>
+      <a href="legal-library.html" class="qp-btn" style="text-decoration:none;">
+        <span class="qp-icon">📚</span> Browse Legal Library
+      </a>
+      <a href="new-case.html" id="sidebarNewCase" class="qp-btn" style="text-decoration:none;display:none;">
+        <span class="qp-icon">📊</span> Analyze My Case
+      </a>
+      <a href="https://edaakhil.nic.in" target="_blank" class="qp-btn" style="text-decoration:none;">
+        <span class="qp-icon">🏛️</span> eDaakhil — File Online
+      </a>
+    </div>
+  </aside>
+
+  <!-- Chat main -->
+  <div class="chat-main">
+
+    <!-- Top bar -->
+    <div class="chat-topbar">
+      <div class="nyaya-avatar">⚖️</div>
+      <div style="flex:1;">
+        <div style="font-weight:700;">Nyaya</div>
+        <div class="nyaya-status"><div class="dot"></div> Consumer Law AI</div>
+      </div>
+      <button class="btn btn-ghost btn-sm" onclick="clearChat()">🗑️ Clear</button>
+    </div>
+
+    <!-- Messages -->
+    <div class="chat-messages" id="chatMessages">
+
+      <!-- Welcome state (shown when no messages) -->
+      <div class="welcome-msg" id="welcomeMsg">
+        <div class="welcome-icon">⚖️</div>
+        <h3 style="font-size:1.3rem;">Hi, I'm Nyaya!</h3>
+        <p style="color:var(--text-secondary);max-width:420px;line-height:1.65;font-size:.95rem;">
+          I'm an AI legal assistant specialized in <strong>Indian consumer law</strong>.
+          Ask me anything about your consumer rights, COPRA 2019, IPC/BNS sections,
+          filing procedures, and more.
+        </p>
+        <div class="welcome-chips">
+          <button class="welcome-chip" onclick="sendQuick('How do I file a consumer complaint?')">📝 How to file a complaint</button>
+          <button class="welcome-chip" onclick="sendQuick('What are my rights as an online shopper in India?')">🛒 Online shopping rights</button>
+          <button class="welcome-chip" onclick="sendQuick('My insurance claim was rejected. What can I do?')">🛡️ Insurance rejection</button>
+          <button class="welcome-chip" onclick="sendQuick('What is COPRA 2019?')">📜 What is COPRA 2019?</button>
+          <button class="welcome-chip" onclick="sendQuick('What filing fee do I need to pay at the District Consumer Commission?')">💰 Filing fees</button>
+          <button class="welcome-chip" onclick="sendQuick('I was cheated by an online seller. What sections apply?')">🔍 Legal sections for fraud</button>
+        </div>
+        <p style="font-size:.75rem;color:var(--text-muted);margin-top:8px;">
+          ⚠️ For educational purposes only · Always consult a qualified lawyer
+        </p>
+      </div>
+
+      <!-- Typing indicator — MUST be inside chatMessages for insertBefore to work -->
+      <div id="typingRow" style="display:none;padding:0 20px 12px;">
+        <div class="msg-row" style="align-self:flex-start;">
+          <div class="msg-avatar bot-avatar">⚖️</div>
+          <div class="msg-bubble" style="background:var(--bg-card);border:1px solid var(--border);padding:14px 18px;">
+            <div class="chat-typing">
+              <div class="typing-dot"></div>
+              <div class="typing-dot"></div>
+              <div class="typing-dot"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Input area -->
+    <div class="chat-input-area">
+      <div class="chat-input-row">
+        <textarea class="chat-input" id="chatInput" rows="1"
+                  placeholder="Ask about consumer rights, filing procedures, IPC/BNS sections…"
+                  onkeydown="handleKey(event)"
+                  oninput="autoResize(this)"></textarea>
+        <button class="chat-send-btn" id="sendBtn" onclick="sendMessage()" title="Send (Enter)">
+          ➤
+        </button>
+      </div>
+      <div style="text-align:center;font-size:.72rem;color:var(--text-muted);margin-top:8px;">
+        Press <kbd style="background:var(--bg-card);padding:2px 6px;border-radius:4px;border:1px solid var(--border);">Enter</kbd> to send · <kbd style="background:var(--bg-card);padding:2px 6px;border-radius:4px;border:1px solid var(--border);">Shift+Enter</kbd> for new line
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/auth.js"></script>
+<script>
+  initNavbar();
+
+  // Update navbar
+  if (Auth.isLoggedIn()) {
+    document.getElementById('navDashboard').style.display = '';
+    document.getElementById('navLogin').style.display = 'none';
+    document.getElementById('navLogout').style.display = '';
+    document.getElementById('sidebarNewCase').style.display = '';
+  }
+
+  const chatMessages = document.getElementById('chatMessages');
+  const input        = document.getElementById('chatInput');
+  const sendBtn      = document.getElementById('sendBtn');
+  const typingRow    = document.getElementById('typingRow');
+  const welcomeMsg   = document.getElementById('welcomeMsg');
+
+  let isWaiting = false;
+  const user = Auth.getUser();
+
+  // Auto-resize textarea
+  function autoResize(el) {
+    el.style.height = 'auto';
+    el.style.height = Math.min(el.scrollHeight, 120) + 'px';
+  }
+
+  // Keyboard handler
+  function handleKey(e) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
+    }
+  }
+
+  // Append message bubble to chat
+  function appendMessage(sender, content, time) {
+    const isUser = sender === 'user';
+    const t = time ? Utils.formatDateTime(time) : new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
+
+    const row = document.createElement('div');
+    row.className = `msg-row ${isUser ? 'user' : 'assistant'}`;
+
+    const rendered = isUser ? content.replace(/&/g,'&amp;').replace(/</g,'&lt;') : Utils.renderMarkdown(content);
+
+    row.innerHTML = `
+      <div class="msg-avatar ${isUser ? 'user-avatar' : 'bot-avatar'}">
+        ${isUser ? (user?.name?.[0]?.toUpperCase() || '👤') : '⚖️'}
+      </div>
+      <div>
+        <div class="msg-bubble">${rendered}</div>
+        <div class="msg-time">${t}</div>
+      </div>
+    `;
+
+    chatMessages.insertBefore(row, typingRow);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+    return row;
+  }
+
+  // Send message
+  async function sendMessage() {
+    const content = input.value.trim();
+    if (!content || isWaiting) return;
+
+    // Hide welcome
+    welcomeMsg.style.display = 'none';
+
+    // Append user message
+    appendMessage('user', content);
+    input.value = '';
+    input.style.height = 'auto';
+
+    // Show typing
+    isWaiting = true;
+    sendBtn.disabled = true;
+    typingRow.style.display = '';
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    try {
+      let response;
+      if (Auth.isLoggedIn()) {
+        response = await ChatAPI.sendMessage(content);
+        appendMessage('assistant', response.assistant_message.content, response.assistant_message.created_at);
+      } else {
+        // Guest mode: use rule-based via backend (no auth token)
+        // Fall back to pattern matching
+        const guestResponse = getRuleBasedResponse(content);
+        await new Promise(r => setTimeout(r, 800)); // Simulate thinking
+        appendMessage('assistant', guestResponse);
+      }
+    } catch (err) {
+      appendMessage('assistant', `⚠️ Sorry, I couldn't process that. Error: ${err.message}\n\nPlease check if the backend is running at http://localhost:8000`);
+    } finally {
+      isWaiting = false;
+      sendBtn.disabled = false;
+      typingRow.style.display = 'none';
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+  }
+
+  // Quick prompt
+  function sendQuick(text) {
+    input.value = text;
+    sendMessage();
+  }
+
+  // Clear chat
+  function clearChat() {
+    const rows = chatMessages.querySelectorAll('.msg-row');
+    rows.forEach(r => r.remove());
+    welcomeMsg.style.display = '';
+  }
+
+  // Guest fallback (simple rule-based)
+  function getRuleBasedResponse(msg) {
+    const m = msg.toLowerCase();
+    if (m.includes('file') || m.includes('complaint') || m.includes('how to'))
+      return "**How to File a Consumer Complaint:**\n\n1. Identify the correct forum based on your claim amount\n2. Collect all relevant documents (receipts, bills, emails)\n3. Send a legal notice to the opposite party\n4. File at **edaakhil.nic.in** online\n\n*Sign in to get full AI-powered responses from Nyaya!*";
+    if (m.includes('fee') || m.includes('cost'))
+      return "**Filing Fees:**\n- District Commission: ₹200–₹4,000\n- State Commission: ₹5,000\n- National Commission: ₹7,500\n\n*Sign in for personalized legal guidance!*";
+    return "I can help with Indian consumer law questions! **Sign in** for full AI-powered responses from Nyaya powered by Groq Llama 3.\n\nTopics I cover: filing procedures, COPRA 2019, IPC/BNS sections, e-commerce rights, insurance, banking fraud, and more.";
+  }
+
+  // Load history if logged in
+  async function loadHistory() {
+    if (!Auth.isLoggedIn()) return;
+    try {
+      const msgs = await ChatAPI.history(30);
+      if (msgs.length) {
+        welcomeMsg.style.display = 'none';
+        msgs.forEach(m => appendMessage(m.sender, m.content, m.created_at));
+      }
+    } catch {}
+  }
+
+  loadHistory();
+</script>
+</body>
+</html>

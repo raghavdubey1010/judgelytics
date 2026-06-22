@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create Account — Judgelytics</title>
+  <meta name="description" content="Create your free Judgelytics account and start analyzing your consumer case with AI." />
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    .auth-card { max-width: 480px; }
+
+    .password-strength { margin-top: 6px; }
+    .strength-bar { display: flex; gap: 4px; margin-bottom: 4px; }
+    .strength-seg {
+      flex: 1; height: 3px; border-radius: 2px;
+      background: var(--border);
+      transition: background 0.3s;
+    }
+    .strength-seg.filled-weak   { background: var(--danger); }
+    .strength-seg.filled-medium { background: var(--accent); }
+    .strength-seg.filled-strong { background: var(--success); }
+    .strength-label { font-size: 0.75rem; color: var(--text-muted); }
+  </style>
+</head>
+<body>
+
+<div style="position:fixed;inset:0;pointer-events:none;z-index:0;">
+  <div style="position:absolute;top:10%;right:20%;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(108,99,255,0.1) 0%,transparent 70%);"></div>
+  <div style="position:absolute;bottom:20%;left:15%;width:350px;height:350px;border-radius:50%;background:radial-gradient(circle,rgba(245,158,11,0.06) 0%,transparent 70%);"></div>
+</div>
+
+<div class="auth-page" style="position:relative;z-index:1;">
+  <div class="auth-card card card-lg animate-in">
+
+    <div class="auth-logo">
+      <div style="font-size:2.5rem;">⚖️</div>
+      <h1>Get Started Free</h1>
+      <p>Create your Judgelytics account</p>
+    </div>
+
+    <div id="formAlert" style="display:none;" class="mb-16"></div>
+
+    <form id="registerForm">
+      <div class="flex-col gap-14">
+
+        <div class="form-group">
+          <label class="form-label" for="name">Full Name</label>
+          <input class="form-control" type="text" id="name" name="name"
+                 placeholder="Rahul Sharma" required autocomplete="name" />
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="email">Email</label>
+            <input class="form-control" type="email" id="email" name="email"
+                   placeholder="you@example.com" required autocomplete="email" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="phone">Phone</label>
+            <input class="form-control" type="tel" id="phone" name="phone"
+                   placeholder="10-digit mobile" pattern="[0-9]{10}" maxlength="10" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="password">Password</label>
+          <div style="position:relative;">
+            <input class="form-control" type="password" id="password" name="password"
+                   placeholder="Minimum 8 characters" required autocomplete="new-password"
+                   oninput="checkStrength()" />
+            <button type="button" id="togglePwd"
+                    style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:1rem;">👁️</button>
+          </div>
+
+          <div class="password-strength" id="strengthWrap" style="display:none;">
+            <div class="strength-bar">
+              <div class="strength-seg" id="s1"></div>
+              <div class="strength-seg" id="s2"></div>
+              <div class="strength-seg" id="s3"></div>
+              <div class="strength-seg" id="s4"></div>
+            </div>
+            <span class="strength-label" id="strengthLabel"></span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="confirm">Confirm Password</label>
+          <input class="form-control" type="password" id="confirm" name="confirm"
+                 placeholder="Re-enter password" required autocomplete="new-password" />
+        </div>
+
+        <div style="display:flex; gap:10px; align-items:flex-start;">
+          <input type="checkbox" id="agree" required
+                 style="margin-top:3px; accent-color:var(--primary);" />
+          <label for="agree" style="font-size:0.83rem; color:var(--text-secondary); cursor:pointer;">
+            I agree that this is an educational project. Judgelytics does not provide professional legal advice. Always consult a qualified lawyer for legal matters.
+          </label>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-full btn-lg" id="regBtn">
+          <span id="regBtnText">Create Account</span>
+          <span id="regSpinner" style="display:none;" class="spinner"></span>
+        </button>
+
+      </div>
+    </form>
+
+    <div class="auth-sep"><span>Already have an account?</span></div>
+
+    <a href="login.html" class="btn btn-ghost btn-full">Sign In</a>
+
+    <div style="text-align:center; margin-top:16px;">
+      <a href="index.html" style="font-size:0.82rem; color:var(--text-muted);">← Back to Home</a>
+    </div>
+
+  </div>
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/auth.js"></script>
+<script>
+  Auth.requireGuest();
+
+  const pwdInput = document.getElementById('password');
+  const segs     = [document.getElementById('s1'), document.getElementById('s2'),
+                    document.getElementById('s3'), document.getElementById('s4')];
+  const strengthLabel = document.getElementById('strengthLabel');
+  const strengthWrap  = document.getElementById('strengthWrap');
+
+  document.getElementById('togglePwd').addEventListener('click', function() {
+    const isText = pwdInput.type === 'text';
+    pwdInput.type = isText ? 'password' : 'text';
+    this.textContent = isText ? '👁️' : '🙈';
+  });
+
+  function checkStrength() {
+    const val = pwdInput.value;
+    if (!val) { strengthWrap.style.display = 'none'; return; }
+    strengthWrap.style.display = '';
+
+    let score = 0;
+    if (val.length >= 8)  score++;
+    if (/[A-Z]/.test(val)) score++;
+    if (/[0-9]/.test(val)) score++;
+    if (/[^a-zA-Z0-9]/.test(val)) score++;
+
+    const classMap = { 1: 'filled-weak', 2: 'filled-medium', 3: 'filled-medium', 4: 'filled-strong' };
+    const labels   = { 1: '⚠️ Weak', 2: '🔶 Fair', 3: '🔷 Good', 4: '✅ Strong' };
+    const cls = classMap[score] || '';
+
+    segs.forEach((s, i) => {
+      s.className = 'strength-seg' + (i < score ? ` ${cls}` : '');
+    });
+    strengthLabel.textContent = labels[score] || '';
+  }
+
+  function showAlert(msg, type = 'error') {
+    const el = document.getElementById('formAlert');
+    const colors = { error: 'rgba(239,68,68,0.12)', success: 'rgba(16,185,129,0.12)' };
+    const textC  = { error: 'var(--danger-light)', success: 'var(--success)' };
+    el.style.cssText = `display:block;background:${colors[type]};border:1px solid ${textC[type]}40;color:${textC[type]};padding:12px 16px;border-radius:var(--radius-sm);font-size:.875rem;`;
+    el.textContent = msg;
+  }
+
+  function setLoading(on) {
+    document.getElementById('regBtn').disabled = on;
+    document.getElementById('regBtnText').textContent = on ? 'Creating…' : 'Create Account';
+    document.getElementById('regSpinner').style.display = on ? '' : 'none';
+  }
+
+  document.getElementById('registerForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    document.getElementById('formAlert').style.display = 'none';
+
+    const name     = document.getElementById('name').value.trim();
+    const email    = document.getElementById('email').value.trim();
+    const phone    = document.getElementById('phone').value.trim();
+    const password = pwdInput.value;
+    const confirm  = document.getElementById('confirm').value;
+
+    if (!name || !email || !password) { showAlert('Please fill all required fields.'); return; }
+    if (password.length < 8) { showAlert('Password must be at least 8 characters.'); return; }
+    if (password !== confirm) { showAlert('Passwords do not match.'); return; }
+
+    setLoading(true);
+    try {
+      const data = await AuthAPI.register(name, email, phone || null, password);
+      Auth.login(data);
+      Toast.success('Account created!', `Welcome to Judgelytics, ${name.split(' ')[0]}!`);
+      setTimeout(() => window.location.href = 'dashboard.html', 900);
+    } catch (err) {
+      showAlert(err.message || 'Registration failed. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  });
+</script>
+</body>
+</html>

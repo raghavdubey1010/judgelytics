@@ -1,0 +1,184 @@
+{
+  "sections": [
+    {
+      "id": "copra-2",
+      "act": "COPRA 2019",
+      "number": "Section 2(7)",
+      "title": "Definition of Consumer",
+      "description": "A 'consumer' means any person who buys any goods for consideration, or hires or avails any services for consideration. Includes any user of goods/services other than the buyer if used with buyer's approval. Does NOT include a person who buys goods for resale or commercial purpose.",
+      "keywords": ["consumer", "definition", "buyer", "goods", "services"],
+      "category": "Definition"
+    },
+    {
+      "id": "copra-2-deficiency",
+      "act": "COPRA 2019",
+      "number": "Section 2(11)",
+      "title": "Deficiency of Service",
+      "description": "Means any fault, imperfection, shortcoming or inadequacy in the quality, nature and manner of performance required to be maintained in relation to any service. Includes failure to issue bill/cash memo/receipt.",
+      "keywords": ["deficiency", "service", "fault", "inadequacy", "shortcoming"],
+      "category": "Definition"
+    },
+    {
+      "id": "copra-2-unfair",
+      "act": "COPRA 2019",
+      "number": "Section 2(46)",
+      "title": "Unfair Trade Practice",
+      "description": "A trade practice which, for promoting sale/use/supply of goods or services, adopts unfair or deceptive methods including: false representation of quality/standard, misleading advertisements, deceptive packaging, bargain-price claims, and digital manipulation.",
+      "keywords": ["unfair trade", "deceptive", "false representation", "misleading advertisement"],
+      "category": "Definition"
+    },
+    {
+      "id": "copra-35",
+      "act": "COPRA 2019",
+      "number": "Section 35",
+      "title": "Complaint before District Commission",
+      "description": "A complaint for claims up to ₹1 crore may be filed before the District Consumer Disputes Redressal Commission. Can be filed by: the consumer, recognized consumer association, State/Central Government, or a group of consumers with same interest.",
+      "keywords": ["district commission", "complaint", "filing", "1 crore"],
+      "category": "Filing"
+    },
+    {
+      "id": "copra-47",
+      "act": "COPRA 2019",
+      "number": "Section 47",
+      "title": "Complaint before State Commission",
+      "description": "The State Consumer Disputes Redressal Commission has jurisdiction to entertain complaints where value of goods or services paid as consideration exceeds ₹1 crore but does not exceed ₹10 crore.",
+      "keywords": ["state commission", "1 crore", "10 crore", "complaint"],
+      "category": "Filing"
+    },
+    {
+      "id": "copra-58",
+      "act": "COPRA 2019",
+      "number": "Section 58",
+      "title": "Complaint before National Commission (NCDRC)",
+      "description": "The National Consumer Disputes Redressal Commission entertains complaints where value of goods or services exceeds ₹10 crore. Also has appellate jurisdiction over State Commissions.",
+      "keywords": ["national commission", "NCDRC", "10 crore", "appellate"],
+      "category": "Filing"
+    },
+    {
+      "id": "copra-69",
+      "act": "COPRA 2019",
+      "number": "Section 69",
+      "title": "Limitation Period",
+      "description": "No complaint shall be admitted by the Commission unless it is filed within two years from the date on which the cause of action has arisen. The Commission may condone delay if sufficient cause is shown.",
+      "keywords": ["limitation", "2 years", "time limit", "delay"],
+      "category": "Procedure"
+    },
+    {
+      "id": "copra-72",
+      "act": "COPRA 2019",
+      "number": "Section 72",
+      "title": "Non-compliance with Order",
+      "description": "Failure to comply with an order of the Commission shall be punishable with imprisonment for a minimum of 1 month (may extend to 3 years) or fine of not less than ₹25,000 (may extend to ₹1 lakh) or both.",
+      "keywords": ["non-compliance", "order", "penalty", "imprisonment", "fine"],
+      "category": "Penalty"
+    },
+    {
+      "id": "copra-73",
+      "act": "COPRA 2019",
+      "number": "Section 73",
+      "title": "Appeal from District Commission",
+      "description": "Any person aggrieved by an order made by the District Commission may appeal to the State Commission within 45 days of the order. The State Commission may condone delay in filing.",
+      "keywords": ["appeal", "district", "state", "45 days"],
+      "category": "Appeal"
+    },
+    {
+      "id": "copra-86",
+      "act": "COPRA 2019",
+      "number": "Section 86",
+      "title": "Appeal from State Commission",
+      "description": "Any person aggrieved by an order from the State Commission may appeal to the National Commission within 30 days. Pre-deposit of 50% of the amount ordered as relief may be required.",
+      "keywords": ["appeal", "state", "national", "30 days", "pre-deposit"],
+      "category": "Appeal"
+    },
+    {
+      "id": "copra-ecommerce",
+      "act": "E-Commerce Rules 2020",
+      "number": "Rule 5",
+      "title": "Duties of E-commerce Entity",
+      "description": "Every e-commerce entity shall provide information including: legal name, principal address, name/contact of grievance officer. Must acknowledge consumer complaint within 48 hours and redress it within 1 month of receipt.",
+      "keywords": ["ecommerce", "online", "marketplace", "grievance officer", "48 hours"],
+      "category": "E-Commerce"
+    },
+    {
+      "id": "copra-product-liability",
+      "act": "COPRA 2019",
+      "number": "Chapter VI (Sections 82–87)",
+      "title": "Product Liability",
+      "description": "A product manufacturer, seller, or service provider is liable for any harm caused due to defective product or deficiency in service. Compensation may include medical expenses, loss of salary, pain and suffering, and punitive damages. The burden of proof shifts to the manufacturer if defect is established.",
+      "keywords": ["product liability", "defective", "manufacturer", "harm", "compensation"],
+      "category": "Liability"
+    },
+    {
+      "id": "bns-318",
+      "act": "BNS 2023",
+      "number": "Section 318",
+      "title": "Cheating (replaces IPC 420)",
+      "description": "Whoever cheats and thereby dishonestly induces the person deceived to deliver any property or to make, alter or destroy any document, shall be punished with imprisonment up to 7 years and fine. Relevant where a seller/company deliberately deceives a consumer.",
+      "keywords": ["cheating", "fraud", "deceive", "property", "420"],
+      "category": "Criminal"
+    },
+    {
+      "id": "bns-316",
+      "act": "BNS 2023",
+      "number": "Section 316",
+      "title": "Criminal Breach of Trust",
+      "description": "Whoever, being entrusted with property, dishonestly misappropriates or converts that property for his own use, shall be punished with imprisonment up to 7 years and fine. Applicable in cases of financial service providers defrauding clients.",
+      "keywords": ["criminal breach of trust", "misappropriate", "entrusted", "property"],
+      "category": "Criminal"
+    },
+    {
+      "id": "bns-61",
+      "act": "BNS 2023",
+      "number": "Section 61",
+      "title": "Criminal Conspiracy",
+      "description": "When two or more persons agree to do an illegal act, each of such persons shall be punished for criminal conspiracy. Relevant when multiple parties conspire to defraud consumers (e.g., real estate fraud by developers and agents together).",
+      "keywords": ["conspiracy", "illegal", "scheme", "multiple parties"],
+      "category": "Criminal"
+    },
+    {
+      "id": "bns-303",
+      "act": "BNS 2023",
+      "number": "Section 303",
+      "title": "Theft (replaces IPC 378)",
+      "description": "Whoever, intending to take dishonestly any movable property out of the possession of any person without that person's consent, moves that property, commits theft. Relevant in disputes involving stolen goods sold as new.",
+      "keywords": ["theft", "stolen", "movable property", "consent"],
+      "category": "Criminal"
+    },
+    {
+      "id": "it-66c",
+      "act": "IT Act 2000",
+      "number": "Section 66C",
+      "title": "Identity Theft",
+      "description": "Whoever, fraudulently or dishonestly makes use of the electronic signature, password or any other unique identification feature of any other person, shall be punished with imprisonment up to 3 years and fine up to ₹1 lakh. Applicable in online banking/payment fraud.",
+      "keywords": ["identity theft", "password", "electronic", "fraud", "online"],
+      "category": "Cyber"
+    },
+    {
+      "id": "it-66d",
+      "act": "IT Act 2000",
+      "number": "Section 66D",
+      "title": "Cheating by Personation Using Computer",
+      "description": "Whoever cheats any person using communication device or computer resource, shall be punished with imprisonment up to 3 years and fine up to ₹1 lakh. Covers phishing, fake online stores, UPI fraud.",
+      "keywords": ["cheating", "personation", "computer", "UPI", "phishing", "online fraud"],
+      "category": "Cyber"
+    },
+    {
+      "id": "rera-18",
+      "act": "RERA 2016",
+      "number": "Section 18",
+      "title": "Return of Amount with Interest",
+      "description": "If a promoter fails to deliver the apartment/plot by the agreed date, the allottee shall be entitled to withdraw from the project with full refund and interest, or continue with the project and receive interest for the delay. Rate of interest: SBI MCLR + 2%.",
+      "keywords": ["real estate", "builder", "delay", "refund", "possession", "RERA"],
+      "category": "Real Estate"
+    },
+    {
+      "id": "copra-mediation",
+      "act": "COPRA 2019",
+      "number": "Section 37–38",
+      "title": "Mediation",
+      "description": "The Commission may refer matters to mediation with consent of parties. Mediation proceedings shall be completed within 3 months. Settlement through mediation is final and binding. This offers a faster resolution than full trial.",
+      "keywords": ["mediation", "settlement", "alternative dispute", "ADR", "3 months"],
+      "category": "ADR"
+    }
+  ]
+}

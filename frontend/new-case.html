@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>New Case Analysis — Judgelytics</title>
+  <meta name="description" content="Submit your consumer grievance for AI-powered case analysis. Get win probability, applicable law sections, and court recommendations." />
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    .form-page { max-width: 780px; margin: 0 auto; }
+
+    .form-section {
+      margin-bottom: 32px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid var(--border);
+    }
+    .form-section:last-of-type { border-bottom: none; }
+
+    .form-section-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .form-section-title .num {
+      width: 28px; height: 28px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .8rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    /* File tag chip */
+    .file-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      background: rgba(108,99,255,0.1);
+      border: 1px solid rgba(108,99,255,0.2);
+      border-radius: 4px;
+      font-size: .78rem;
+      color: var(--primary-light);
+    }
+    .file-tag button {
+      background: none; border: none;
+      color: var(--text-muted); cursor: pointer;
+      font-size: 1rem; line-height: 1; padding: 0;
+    }
+    .file-tag button:hover { color: var(--danger-light); }
+
+    /* Radio card group */
+    .radio-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+
+    .radio-card input[type="radio"] { display: none; }
+    .radio-card label {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      padding: 14px 8px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-size: .8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-align: center;
+      transition: all var(--transition);
+    }
+    .radio-card label .icon { font-size: 1.4rem; }
+    .radio-card input:checked + label {
+      border-color: var(--primary);
+      background: rgba(108,99,255,0.1);
+      color: var(--primary-light);
+      box-shadow: 0 0 0 2px var(--primary-glow);
+    }
+
+    .notice-toggle { display: flex; align-items: center; gap: 12px; cursor: pointer; }
+    .toggle-switch {
+      width: 44px; height: 24px;
+      background: var(--border);
+      border-radius: 12px;
+      position: relative;
+      transition: background var(--transition);
+      flex-shrink: 0;
+    }
+    .toggle-switch::after {
+      content: '';
+      position: absolute;
+      width: 18px; height: 18px;
+      background: white;
+      border-radius: 50%;
+      top: 3px; left: 3px;
+      transition: transform var(--transition);
+    }
+    .notice-toggle input:checked ~ .toggle-switch { background: var(--primary); }
+    .notice-toggle input:checked ~ .toggle-switch::after { transform: translateX(20px); }
+    .notice-toggle input { display: none; }
+
+    /* Submit result */
+    .submit-card {
+      position: sticky;
+      bottom: 20px;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: 20px 28px;
+      backdrop-filter: blur(20px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      box-shadow: var(--shadow-lg);
+    }
+
+    @media (max-width: 640px) {
+      .radio-cards { grid-template-columns: repeat(2, 1fr); }
+      .submit-card { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <div class="navbar-inner">
+    <a href="index.html" class="navbar-brand">
+      <div class="brand-icon">⚖️</div>
+      <span class="brand-name">Judge<span>lytics</span></span>
+    </a>
+    <ul class="navbar-links">
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="new-case.html" class="active">New Case</a></li>
+      <li><a href="legal-library.html">Legal Library</a></li>
+      <li><a href="chat.html">AI Assistant</a></li>
+    </ul>
+    <div class="flex gap-10" style="align-items:center;">
+      <span id="navUserName" style="font-size:.85rem;color:var(--text-secondary);"></span>
+      <button onclick="Auth.logout()" class="btn btn-ghost btn-sm">Sign Out</button>
+    </div>
+  </div>
+</nav>
+
+<main class="page-pad" style="position:relative;z-index:1;">
+  <div class="container">
+    <div class="form-page">
+
+      <!-- Page Header -->
+      <div class="mb-32">
+        <a href="dashboard.html" style="font-size:.85rem;color:var(--text-muted);">← Back to Dashboard</a>
+        <h1 style="margin-top:16px;">New Case Analysis</h1>
+        <p style="color:var(--text-secondary);margin-top:6px;">Describe your grievance and let AI analyse your chances of winning.</p>
+      </div>
+
+      <form id="caseForm">
+
+        <!-- §1 Grievance Description -->
+        <section class="form-section">
+          <div class="form-section-title">
+            <div class="num">1</div> Describe Your Grievance
+          </div>
+          <div class="flex-col gap-16">
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="category">Category *</label>
+                <select class="form-control" id="category" required>
+                  <option value="">Select category</option>
+                  <option value="Defective Product">Defective Product</option>
+                  <option value="Deficiency of Service">Deficiency of Service</option>
+                  <option value="Unfair Trade Practice">Unfair Trade Practice</option>
+                  <option value="Overcharging">Overcharging / Hidden Fees</option>
+                  <option value="Non-Delivery">Non-Delivery / Delay</option>
+                  <option value="Fraud">Fraud / Cheating</option>
+                  <option value="Product Liability">Product Liability</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="sector">Sector *</label>
+                <select class="form-control" id="sector" required>
+                  <option value="">Select sector</option>
+                  <option value="E-commerce">E-commerce / Online Shopping</option>
+                  <option value="Insurance">Insurance</option>
+                  <option value="Real Estate">Real Estate / Housing</option>
+                  <option value="Automobile">Automobile / Vehicles</option>
+                  <option value="Banking">Banking / Finance</option>
+                  <option value="Telecom">Telecom / Mobile</option>
+                  <option value="Consumer Goods">Consumer Goods / Electronics</option>
+                  <option value="Healthcare">Healthcare / Medical</option>
+                  <option value="Education">Education</option>
+                  <option value="Travel">Travel / Hospitality</option>
+                  <option value="General">General</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="description">Grievance Description * <span style="color:var(--text-muted);font-weight:400;text-transform:none;">(min 50 words)</span></label>
+              <textarea class="form-control" id="description" rows="6" required
+                placeholder="Describe your complaint in detail. Include: what happened, when it happened, what the company did wrong, what you have tried so far, and what outcome you are seeking..."
+                oninput="updateWordCount()"></textarea>
+              <div class="flex-between mt-8">
+                <span class="form-hint">Be specific — mention product names, dates, amounts paid, and company responses.</span>
+                <span id="wordCount" style="font-size:.78rem;color:var(--text-muted);">0 words</span>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- §2 Opponent & Claim -->
+        <section class="form-section">
+          <div class="form-section-title">
+            <div class="num">2</div> Claim Details
+          </div>
+          <div class="flex-col gap-16">
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="claimAmount">Claim Amount (₹) *</label>
+                <input class="form-control" type="number" id="claimAmount" placeholder="e.g. 25000"
+                       min="1" required />
+                <span class="form-hint" id="forumHint" style="margin-top:6px;"></span>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="evidenceCount">Evidence / Documents Count</label>
+                <input class="form-control" type="number" id="evidenceCount" placeholder="e.g. 3"
+                       min="0" max="50" value="0" />
+                <span class="form-hint">Number of supporting docs you have (receipts, emails, photos, etc.)</span>
+              </div>
+            </div>
+
+            <!-- Opponent type cards -->
+            <div class="form-group">
+              <label class="form-label">Opponent Type</label>
+              <div class="radio-cards" id="opponentCards">
+                <div class="radio-card">
+                  <input type="radio" name="opponent" id="opp-company" value="Company" checked />
+                  <label for="opp-company"><span class="icon">🏢</span> Company</label>
+                </div>
+                <div class="radio-card">
+                  <input type="radio" name="opponent" id="opp-govt" value="Government" />
+                  <label for="opp-govt"><span class="icon">🏛️</span> Government Body</label>
+                </div>
+                <div class="radio-card">
+                  <input type="radio" name="opponent" id="opp-bank" value="Bank" />
+                  <label for="opp-bank"><span class="icon">🏦</span> Bank / NBFC</label>
+                </div>
+                <div class="radio-card">
+                  <input type="radio" name="opponent" id="opp-insurer" value="Insurance" />
+                  <label for="opp-insurer"><span class="icon">🛡️</span> Insurance Co.</label>
+                </div>
+                <div class="radio-card">
+                  <input type="radio" name="opponent" id="opp-builder" value="Builder" />
+                  <label for="opp-builder"><span class="icon">🏗️</span> Builder / Developer</label>
+                </div>
+                <div class="radio-card">
+                  <input type="radio" name="opponent" id="opp-other" value="Other" />
+                  <label for="opp-other"><span class="icon">👤</span> Other</label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Legal notice toggle -->
+            <div class="form-group">
+              <label class="form-label">Legal Notice Sent?</label>
+              <label class="notice-toggle">
+                <input type="checkbox" id="legalNotice" />
+                <div class="toggle-switch"></div>
+                <span id="noticeLabel" style="font-size:.9rem;color:var(--text-secondary);">Not sent</span>
+              </label>
+              <span class="form-hint">Sending a legal notice before filing improves case strength.</span>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- §3 Upload Documents -->
+        <section class="form-section">
+          <div class="form-section-title">
+            <div class="num">3</div> Upload Supporting Documents <span style="font-weight:400;color:var(--text-muted);font-size:.85rem;">(Optional)</span>
+          </div>
+
+          <div class="upload-zone" id="uploadZone" onclick="document.getElementById('fileInput').click()">
+            <input type="file" id="fileInput" style="display:none;" multiple accept=".pdf,.jpg,.jpeg,.png,.webp" onchange="handleFiles(this.files)" />
+            <div class="upload-icon">📎</div>
+            <div class="upload-title">Drag & drop or click to upload</div>
+            <div class="upload-sub">PDF, JPG, PNG · Max 10MB per file · Receipts, bills, email screenshots</div>
+          </div>
+
+          <div id="fileList" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;"></div>
+        </section>
+
+        <!-- Sticky submit -->
+        <div class="submit-card">
+          <div>
+            <div style="font-weight:700;font-size:1rem;">Ready to analyze?</div>
+            <div style="font-size:.82rem;color:var(--text-muted);">AI will predict outcome, forum, and applicable law sections</div>
+          </div>
+          <div class="flex gap-12">
+            <a href="dashboard.html" class="btn btn-ghost">Cancel</a>
+            <button type="submit" class="btn btn-accent btn-lg" id="submitBtn">
+              <span id="submitBtnText">⚡ Analyze My Case</span>
+              <span id="submitSpinner" class="spinner" style="display:none;"></span>
+            </button>
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</main>
+
+<script src="js/api.js"></script>
+<script src="js/auth.js"></script>
+<script>
+  if (!Auth.requireAuth()) throw '';
+
+  const user = Auth.getUser();
+  document.getElementById('navUserName').textContent = user?.name || '';
+  initNavbar();
+
+  // Word count
+  function updateWordCount() {
+    const words = document.getElementById('description').value.trim().split(/\s+/).filter(Boolean).length;
+    const el = document.getElementById('wordCount');
+    el.textContent = `${words} words`;
+    el.style.color = words >= 50 ? 'var(--success)' : 'var(--text-muted)';
+  }
+
+  // Forum hint based on claim amount
+  document.getElementById('claimAmount').addEventListener('input', function() {
+    const amt = parseFloat(this.value) || 0;
+    const hintEl = document.getElementById('forumHint');
+    if (amt <= 0) { hintEl.textContent = ''; return; }
+    if (amt <= 1e7) hintEl.textContent = '🏛️ District Consumer Commission (up to ₹1 crore)';
+    else if (amt <= 1e8) hintEl.textContent = '🏛️ State Consumer Commission (₹1–10 crore)';
+    else hintEl.textContent = '🏛️ National Consumer Commission (above ₹10 crore)';
+  });
+
+  // Legal notice toggle
+  document.getElementById('legalNotice').addEventListener('change', function() {
+    document.getElementById('noticeLabel').textContent = this.checked ? '✅ Yes, sent' : 'Not sent';
+  });
+
+  // File handling
+  let files = [];
+  function handleFiles(newFiles) {
+    for (const f of newFiles) {
+      if (files.length >= 5) { Toast.warning('Limit reached', 'Maximum 5 files allowed.'); break; }
+      if (f.size > 10 * 1024 * 1024) { Toast.error('File too large', `${f.name} exceeds 10MB.`); continue; }
+      files.push(f);
+    }
+    renderFileList();
+    document.getElementById('evidenceCount').value = files.length;
+  }
+
+  function renderFileList() {
+    const list = document.getElementById('fileList');
+    list.innerHTML = '';
+    files.forEach((f, i) => {
+      const tag = document.createElement('div');
+      tag.className = 'file-tag';
+      tag.innerHTML = `📄 ${f.name} <button onclick="removeFile(${i})">✕</button>`;
+      list.appendChild(tag);
+    });
+  }
+
+  function removeFile(i) {
+    files.splice(i, 1);
+    renderFileList();
+    document.getElementById('evidenceCount').value = files.length;
+  }
+
+  // Drag and drop
+  const zone = document.getElementById('uploadZone');
+  zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('drag-over'); });
+  zone.addEventListener('dragleave', () => zone.classList.remove('drag-over'));
+  zone.addEventListener('drop', e => {
+    e.preventDefault(); zone.classList.remove('drag-over');
+    handleFiles(e.dataTransfer.files);
+  });
+
+  // Form submission
+  document.getElementById('caseForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const description = document.getElementById('description').value.trim();
+    const words = description.split(/\s+/).filter(Boolean).length;
+    if (words < 20) { Toast.warning('Too short', 'Please describe your grievance in at least 20 words.'); return; }
+
+    const claimAmount = parseFloat(document.getElementById('claimAmount').value);
+    if (!claimAmount || claimAmount <= 0) { Toast.warning('Required', 'Please enter a valid claim amount.'); return; }
+
+    const opponent = document.querySelector('input[name="opponent"]:checked')?.value || 'Company';
+    const hasNotice = document.getElementById('legalNotice').checked ? 'Yes' : 'No';
+
+    const caseData = {
+      description,
+      category: document.getElementById('category').value || 'Other',
+      sector:   document.getElementById('sector').value || 'General',
+      claim_amount:   claimAmount,
+      evidence_count: parseInt(document.getElementById('evidenceCount').value) || files.length,
+      has_legal_notice: hasNotice,
+      opponent_type: opponent
+    };
+
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    document.getElementById('submitBtnText').textContent = 'Analyzing…';
+    document.getElementById('submitSpinner').style.display = '';
+    Loader.show('AI is analyzing your case…');
+
+    try {
+      const result = await CaseAPI.analyze(caseData);
+      Toast.success('Analysis complete!', 'Redirecting to your results…');
+      setTimeout(() => {
+        window.location.href = `case-result.html?id=${result.case_id}`;
+      }, 700);
+    } catch (err) {
+      Toast.error('Analysis failed', err.message);
+      btn.disabled = false;
+      document.getElementById('submitBtnText').textContent = '⚡ Analyze My Case';
+      document.getElementById('submitSpinner').style.display = 'none';
+    } finally {
+      Loader.hide();
+    }
+  });
+</script>
+</body>
+</html>

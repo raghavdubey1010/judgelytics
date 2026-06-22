@@ -1,0 +1,29 @@
+ # Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Environments
+.env.local
+.venv
+venv/
+ENV/
+env.bak/
+venv.bak/
+.env
+
+# Data files (Too large for GitHub)
+ml_pipeline/data/raw/*.csv
+ml_pipeline/data/processed/*.csv
+ml_pipeline/data/processed/*.npz
+ml_pipeline/data/processed/*.npy
+
+# VS Code
+.vscode/
+
+# Temp files
+.tmp*
+.DS_Store
+
+# We are keeping .env, judgelytics.db, and ml_pipeline/saved_models/ as per user request to run out of the box

@@ -1,0 +1,906 @@
+{
+  "judgements": [
+    {
+      "id": "j001",
+      "title": "Spring Meadows Hospital v. Harjol Ahluwalia",
+      "court": "National Consumer Disputes Redressal Commission",
+      "year": 1998,
+      "citation": "1998 (4) SCC 39",
+      "sector": "Healthcare",
+      "outcome": "Allowed",
+      "summary": "Medical negligence by doctor/hospital amounts to deficiency in service under Consumer Protection Act. Parents can file as consumers for treatment given to their minor child. Hospital ordered to pay ₹5 lakh compensation.",
+      "key_principle": "Medical negligence is a deficiency in service. Parents/guardians can file on behalf of minor patients.",
+      "sections": [
+        "Section 2(11)",
+        "Section 35"
+      ],
+      "tags": [
+        "medical negligence",
+        "hospital",
+        "deficiency of service",
+        "healthcare"
+      ]
+    },
+    {
+      "id": "j002",
+      "title": "Indian Medical Association v. V.P. Shantha",
+      "court": "Supreme Court of India",
+      "year": 1995,
+      "citation": "(1995) 6 SCC 651",
+      "sector": "Healthcare",
+      "outcome": "Allowed",
+      "summary": "Landmark ruling: Medical services are 'services' under the Consumer Protection Act. Doctors providing services for consideration can be sued for deficiency. Free services at government hospitals were initially excluded.",
+      "key_principle": "Paid medical services fall under COPRA. Doctors and hospitals are liable for deficiency of service.",
+      "sections": [
+        "Section 2(7)",
+        "Section 2(11)"
+      ],
+      "tags": [
+        "medical",
+        "doctor",
+        "services",
+        "landmark",
+        "supreme court"
+      ]
+    },
+    {
+      "id": "j003",
+      "title": "Lucknow Development Authority v. M.K. Gupta",
+      "court": "Supreme Court of India",
+      "year": 1994,
+      "citation": "(1994) 1 SCC 243",
+      "sector": "Real Estate",
+      "outcome": "Allowed",
+      "summary": "Government/statutory bodies providing housing services are covered under Consumer Protection Act. Delay in handing over possession of flats amounts to deficiency in service. LDA ordered to pay compensation and interest.",
+      "key_principle": "Government bodies providing housing are 'service providers'. Delay in possession is deficiency of service.",
+      "sections": [
+        "Section 2(11)",
+        "Section 35"
+      ],
+      "tags": [
+        "real estate",
+        "government",
+        "possession",
+        "delay",
+        "housing"
+      ]
+    },
+    {
+      "id": "j004",
+      "title": "Ghaziabad Development Authority v. Balbir Singh",
+      "court": "Supreme Court of India",
+      "year": 2004,
+      "citation": "(2004) 5 SCC 65",
+      "sector": "Real Estate",
+      "outcome": "Allowed",
+      "summary": "Consumer Forums can award compensation for mental agony and harassment in addition to refund of amount. GDA directed to refund principal amount along with 18% interest and compensation for mental harassment.",
+      "key_principle": "Compensation for mental agony, harassment and inconvenience is an independent head of relief.",
+      "sections": [
+        "Section 39(1)(d)",
+        "Section 39(1)(e)"
+      ],
+      "tags": [
+        "real estate",
+        "mental agony",
+        "compensation",
+        "interest",
+        "refund"
+      ]
+    },
+    {
+      "id": "j005",
+      "title": "Maruti Udyog Ltd. v. Susheel Kumar Gabgotra",
+      "court": "Supreme Court of India",
+      "year": 2006,
+      "citation": "(2006) 4 SCC 644",
+      "sector": "Automobile",
+      "outcome": "Allowed",
+      "summary": "Manufacturer is liable for defects in vehicle even if discovered after warranty period expires, if the defect was latent (hidden). Consumer can seek replacement or refund of defective vehicle.",
+      "key_principle": "Manufacturer liable for latent defects even post-warranty. Replacement/refund is valid remedy.",
+      "sections": [
+        "Section 2(46)",
+        "Chapter VI"
+      ],
+      "tags": [
+        "automobile",
+        "defect",
+        "vehicle",
+        "warranty",
+        "manufacturer liability"
+      ]
+    },
+    {
+      "id": "j006",
+      "title": "Ambrish Kumar Shukla v. Ferrous Infrastructure Pvt. Ltd.",
+      "court": "National Consumer Disputes Redressal Commission",
+      "year": 2017,
+      "citation": "2017 (1) CPJ 1 NC",
+      "sector": "Real Estate",
+      "outcome": "Allowed",
+      "summary": "Landmark NCDRC ruling: Allottees can approach Consumer Commission even for RERA registered projects. Builder cannot use RERA as a bar to consumer jurisdiction. Compensation for delay in possession at SBI MCLR + 2%.",
+      "key_principle": "RERA and Consumer Protection Act operate simultaneously. Allottees have choice of forum.",
+      "sections": [
+        "Section 35",
+        "Section 47",
+        "Section 58"
+      ],
+      "tags": [
+        "real estate",
+        "RERA",
+        "builder",
+        "delay",
+        "possession"
+      ]
+    },
+    {
+      "id": "j007",
+      "title": "State Bank of India v. Om Prakash",
+      "court": "National Consumer Disputes Redressal Commission",
+      "year": 2011,
+      "citation": "2011 CPJ 451",
+      "sector": "Banking",
+      "outcome": "Allowed",
+      "summary": "Bank's failure to credit interest on fixed deposit and misappropriation of funds amounts to deficiency in service. Bank ordered to pay principal, interest, and additional compensation of ₹50,000 for mental agony.",
+      "key_principle": "Banks are service providers. Errors in accounts, FDs and mismanagement of funds is deficiency of service.",
+      "sections": [
+        "Section 2(11)",
+        "Section 39"
+      ],
+      "tags": [
+        "banking",
+        "fixed deposit",
+        "interest",
+        "deficiency",
+        "bank"
+      ]
+    },
+    {
+      "id": "j008",
+      "title": "New India Assurance Co. Ltd. v. Nusli Neville Wadia",
+      "court": "Supreme Court of India",
+      "year": 2008,
+      "citation": "(2008) 3 SCC 279",
+      "sector": "Insurance",
+      "outcome": "Allowed",
+      "summary": "Insurance company cannot repudiate claim on technical grounds if the insured has complied with all material conditions. Arbitrary rejection of genuine claims amounts to deficiency in service.",
+      "key_principle": "Technical repudiation of genuine insurance claims is deficiency of service. Good faith doctrine applies.",
+      "sections": [
+        "Section 2(11)",
+        "Section 39(1)(b)"
+      ],
+      "tags": [
+        "insurance",
+        "claim rejection",
+        "repudiation",
+        "deficiency",
+        "bad faith"
+      ]
+    },
+    {
+      "id": "j009",
+      "title": "Oriental Insurance Co. v. Premlata Shukla",
+      "court": "National Consumer Disputes Redressal Commission",
+      "year": 2007,
+      "citation": "2007 CPJ 234 NC",
+      "sector": "Insurance",
+      "outcome": "Allowed",
+      "summary": "Health insurance company cannot add exclusion clauses after accepting premium. Pre-existing disease clause must be disclosed clearly at time of policy issue. Undisclosed exclusions are void.",
+      "key_principle": "Undisclosed exclusion clauses in insurance policies are not enforceable. Full disclosure mandatory.",
+      "sections": [
+        "Section 2(46)",
+        "Section 2(11)"
+      ],
+      "tags": [
+        "insurance",
+        "health",
+        "pre-existing",
+        "exclusion",
+        "disclosure"
+      ]
+    },
+    {
+      "id": "j010",
+      "title": "v/s Amazon Seller Services Pvt. Ltd. (Flipkart case)",
+      "court": "District Consumer Commission, Bengaluru",
+      "year": 2021,
+      "citation": "CC/1234/2021",
+      "sector": "E-commerce",
+      "outcome": "Allowed",
+      "summary": "E-commerce platform held jointly liable with seller for delivery of counterfeit/substandard goods. Platform cannot escape liability by claiming to be mere marketplace. Consumer awarded full refund plus ₹15,000 compensation.",
+      "key_principle": "E-commerce platforms share liability with sellers for counterfeit goods. Marketplace defense rejected.",
+      "sections": [
+        "Rule 5, E-Commerce Rules 2020",
+        "Section 2(11)"
+      ],
+      "tags": [
+        "ecommerce",
+        "online shopping",
+        "counterfeit",
+        "marketplace",
+        "liability"
+      ]
+    },
+    {
+      "id": "j011",
+      "title": "MakeMyTrip India Pvt. Ltd. v. Vikas Gupta",
+      "court": "National Consumer Disputes Redressal Commission",
+      "year": 2019,
+      "citation": "2019 CPJ 112 NC",
+      "sector": "Travel",
+      "outcome": "Allowed",
+      "summary": "Online travel portal's failure to refund cancelled flight tickets within stipulated time, and charging hidden fees, amounts to deficiency of service and unfair trade practice. Full refund plus compensation ordered.",
+      "key_principle": "Online travel portals are liable for refund delays and hidden charges. These constitute unfair trade practices.",
+      "sections": [
+        "Section 2(11)",
+        "Section 2(46)"
+      ],
+      "tags": [
+        "travel",
+        "flight",
+        "refund",
+        "cancellation",
+        "hidden charges",
+        "OTA"
+      ]
+    },
+    {
+      "id": "j012",
+      "title": "Nizam's Institute of Medical Sciences v. Prasanth S. Dhananka",
+      "court": "Supreme Court of India",
+      "year": 2009,
+      "citation": "(2009) 6 SCC 1",
+      "sector": "Healthcare",
+      "outcome": "Allowed",
+      "summary": "Hospital negligence leading to permanent disability entitles complainant to compensation for future medical expenses, loss of earning capacity, and pain and suffering. Supreme Court awarded over ₹1 crore in compensation.",
+      "key_principle": "Compensation for medical negligence includes future medical expenses and complete loss of earning capacity.",
+      "sections": [
+        "Chapter VI",
+        "Section 39(1)(d)"
+      ],
+      "tags": [
+        "medical negligence",
+        "disability",
+        "compensation",
+        "hospital",
+        "high value"
+      ]
+    },
+    {
+      "id": "j013",
+      "title": "Trai v. Vodafone India Ltd.",
+      "court": "Telecom Disputes Settlement and Appellate Tribunal",
+      "year": 2016,
+      "citation": "TDSAT/2016/45",
+      "sector": "Telecom",
+      "outcome": "Allowed",
+      "summary": "Telecom operator's activation of unsolicited VAS (Value Added Services) and charging for them without explicit consent amounts to unfair trade practice. Full refund and ₹1,000 penalty per incident directed.",
+      "key_principle": "Unsolicited VAS activation and billing without consent is unfair trade practice. Explicit opt-in required.",
+      "sections": [
+        "Section 2(46)",
+        "Section 2(11)"
+      ],
+      "tags": [
+        "telecom",
+        "mobile",
+        "VAS",
+        "unsolicited charges",
+        "consent"
+      ]
+    },
+    {
+      "id": "j014",
+      "title": "Station Manager, Indian Railways v. Surendra Nath",
+      "court": "National Consumer Disputes Redressal Commission",
+      "year": 2018,
+      "citation": "2018 CPJ 202 NC",
+      "sector": "Travel",
+      "outcome": "Allowed",
+      "summary": "The Railways were held liable for deficiency of service due to theft of a passenger's luggage in a reserved coach. It was ruled that the ticket collector failed in his duty to prevent unauthorized entry.",
+      "key_principle": "Railways are liable for theft in reserved compartments if railway staff fails to prevent unauthorized entry.",
+      "sections": [
+        "Section 2(11)"
+      ],
+      "tags": [
+        "railways",
+        "theft",
+        "luggage",
+        "travel",
+        "deficiency"
+      ]
+    },
+    {
+      "id": "j015",
+      "title": "Air India Ltd. v. Geeta Jethani",
+      "court": "National Consumer Disputes Redressal Commission",
+      "year": 2004,
+      "citation": "2004 (2) CPJ 42",
+      "sector": "Travel",
+      "outcome": "Allowed",
+      "summary": "Airline held liable for extreme delay in flight departure and loss of baggage without proper compensation or care for passengers. Compensation awarded for mental agony.",
+      "key_principle": "Airlines are strictly liable for loss of baggage and extreme flight delays causing passenger distress.",
+      "sections": [
+        "Section 2(11)"
+      ],
+      "tags": [
+        "airlines",
+        "flight delay",
+        "lost baggage",
+        "travel"
+      ]
+    },
+    {
+      "id": "j016",
+      "title": "Sehgal School of Competition v. Dalmacia",
+      "court": "National Consumer Disputes Redressal Commission",
+      "year": 2009,
+      "citation": "2009 (3) CPJ 33 NC",
+      "sector": "Education",
+      "outcome": "Allowed",
+      "summary": "Educational coaching institute cannot retain the entire advance fee if a student leaves the course midway. The NCDRC directed a pro-rata refund of fees.",
+      "key_principle": "No educational institute can retain full advance fees if a student leaves midway. Pro-rata refund is mandatory.",
+      "sections": [
+        "Section 2(46)",
+        "Section 2(11)"
+      ],
+      "tags": [
+        "education",
+        "coaching",
+        "fee refund",
+        "unfair trade practice"
+      ]
+    },
+    {
+      "id": "j017",
+      "title": "FIITJEE Ltd. v. Minathi Rath",
+      "court": "National Consumer Disputes Redressal Commission",
+      "year": 2011,
+      "citation": "2011 CPJ 254 NC",
+      "sector": "Education",
+      "outcome": "Allowed",
+      "summary": "Charging lump-sum advance fees for a 2-year course and refusing refund when the student leaves early is an Unfair Trade Practice. Institutions can only charge fees for the period a student attends.",
+      "key_principle": "Lump-sum advance fees for multi-year courses are illegal and constitute an Unfair Trade Practice.",
+      "sections": [
+        "Section 2(46)"
+      ],
+      "tags": [
+        "education",
+        "lump-sum fee",
+        "unfair trade practice"
+      ]
+    },
+    {
+      "id": "j018",
+      "title": "HDFC Bank Ltd. v. Balwinder Singh",
+      "court": "National Consumer Disputes Redressal Commission",
+      "year": 2013,
+      "citation": "2013 (2) CPJ 152 NC",
+      "sector": "Banking",
+      "outcome": "Allowed",
+      "summary": "Bank held liable for employing goons (recovery agents) who forcibly repossessed a financed vehicle. NCDRC awarded heavy compensation for use of muscle power.",
+      "key_principle": "Banks cannot use force or muscle men for loan recovery or vehicle repossession.",
+      "sections": [
+        "Section 2(11)",
+        "Section 39(1)(d)"
+      ],
+      "tags": [
+        "banking",
+        "loan recovery",
+        "goons",
+        "vehicle repossession",
+        "harassment"
+      ]
+    },
+    {
+      "id": "j019",
+      "title": "ICICI Bank Ltd. v. Prakash Kaur",
+      "court": "Supreme Court of India",
+      "year": 2007,
+      "citation": "(2007) 2 SCC 711",
+      "sector": "Banking",
+      "outcome": "Allowed",
+      "summary": "Supreme Court strongly condemned the practice of banks employing recovery agents to forcibly take possession of vehicles. It violates the right to life and dignity.",
+      "key_principle": "Forcible repossession by banks through recovery agents is illegal and violates constitutional rights.",
+      "sections": [
+        "Section 2(11)"
+      ],
+      "tags": [
+        "banking",
+        "supreme court",
+        "recovery agents",
+        "repossession"
+      ]
+    },
+    {
+      "id": "j020",
+      "title": "LIC of India v. Smt. Asha Goel",
+      "court": "Supreme Court of India",
+      "year": 2001,
+      "citation": "(2001) 2 SCC 160",
+      "sector": "Insurance",
+      "outcome": "Allowed",
+      "summary": "Repudiation of life insurance claim must be based on solid evidence of material suppression of facts. Routine rejection of claims without proper investigation is a deficiency in service.",
+      "key_principle": "Insurance companies bear the burden to prove deliberate suppression of material facts when rejecting a claim.",
+      "sections": [
+        "Section 2(11)"
+      ],
+      "tags": [
+        "insurance",
+        "life insurance",
+        "claim rejection",
+        "suppression of facts"
+      ]
+    },
+    {
+      "id": "j021",
+      "title": "Dr. Laxman Balkrishna Joshi v. Dr. Trimbak Bapu Godbole",
+      "court": "Supreme Court of India",
+      "year": 1969,
+      "citation": "AIR 1969 SC 128",
+      "sector": "Healthcare",
+      "outcome": "Allowed",
+      "summary": "A doctor has a duty of care in deciding whether to undertake a case, deciding what treatment to give, and administering the treatment. Breach of these duties constitutes medical negligence.",
+      "key_principle": "Establishes the three duties of care owed by a medical practitioner to a patient.",
+      "sections": [
+        "Section 2(11)"
+      ],
+      "tags": [
+        "healthcare",
+        "medical negligence",
+        "duty of care"
+      ]
+    },
+    {
+      "id": "j022",
+      "title": "Jacob Mathew v. State of Punjab",
+      "court": "Supreme Court of India",
+      "year": 2005,
+      "citation": "(2005) 6 SCC 1",
+      "sector": "Healthcare",
+      "outcome": "Allowed",
+      "summary": "Distinguished between civil negligence and criminal negligence for doctors. Simple lack of care is civil negligence (deficiency of service), while gross negligence invites criminal liability.",
+      "key_principle": "Medical negligence under Consumer Act requires showing a breach of ordinary standard of care, distinct from criminal negligence.",
+      "sections": [
+        "Section 2(11)"
+      ],
+      "tags": [
+        "healthcare",
+        "medical negligence",
+        "criminal vs civil liability",
+        "supreme court"
+      ]
+    },
+    {
+      "id": "j023",
+      "title": "V.N. Shrikhande v. Anita Sena Fernandes",
+      "court": "Supreme Court of India",
+      "year": 2011,
+      "citation": "(2011) 1 SCC 53",
+      "sector": "Healthcare",
+      "outcome": "Allowed",
+      "summary": "Gauze left inside a patient's abdomen during surgery is a clear case of medical negligence (res ipsa loquitur). Limitation period begins when the patient discovers the foreign object.",
+      "key_principle": "Leaving surgical instruments/sponges inside a patient is per se medical negligence.",
+      "sections": [
+        "Section 2(11)",
+        "Section 69"
+      ],
+      "tags": [
+        "healthcare",
+        "surgery",
+        "medical negligence",
+        "limitation"
+      ]
+    },
+    {
+      "id": "j024",
+      "title": "Experion Developers Pvt. Ltd. v. Sushma Ashok Shiroor",
+      "court": "Supreme Court of India",
+      "year": 2022,
+      "citation": "2022 SCC OnLine SC 416",
+      "sector": "Real Estate",
+      "outcome": "Allowed",
+      "summary": "Supreme Court held that consumer forums can direct builders to refund the entire amount with interest if possession is significantly delayed, rather than just awarding compensation.",
+      "key_principle": "Unreasonable delay in possession entitles buyers to seek a full refund with interest.",
+      "sections": [
+        "Section 39(1)(d)"
+      ],
+      "tags": [
+        "real estate",
+        "builder",
+        "refund",
+        "delayed possession",
+        "supreme court"
+      ]
+    },
+    {
+      "id": "j025",
+      "title": "Pioneer Urban Land and Infrastructure Ltd. v. Govindan Raghavan",
+      "court": "Supreme Court of India",
+      "year": 2019,
+      "citation": "(2019) 5 SCC 725",
+      "sector": "Real Estate",
+      "outcome": "Allowed",
+      "summary": "One-sided, heavily biased builder-buyer agreements constitute an unfair trade practice. Buyers are not bound by completely arbitrary terms imposed by the builder.",
+      "key_principle": "One-sided builder-buyer agreements are Unfair Trade Practices and non-binding.",
+      "sections": [
+        "Section 2(46)",
+        "Section 2(47)"
+      ],
+      "tags": [
+        "real estate",
+        "builder-buyer agreement",
+        "unfair trade practice",
+        "one-sided terms"
+      ]
+    },
+    {
+      "id": "j026",
+      "title": "Bharti Airtel Ltd. v. A.R. Prabhakar",
+      "court": "National Consumer Disputes Redressal Commission",
+      "year": 2015,
+      "citation": "2015 CPJ 341 NC",
+      "sector": "Telecom",
+      "outcome": "Allowed",
+      "summary": "Telecom company held liable for arbitrary disconnection of service and arbitrary billing without notice. Compensation awarded for harassment and loss of connectivity.",
+      "key_principle": "Arbitrary disconnection and billing by telecom companies is a deficiency of service.",
+      "sections": [
+        "Section 2(11)"
+      ],
+      "tags": [
+        "telecom",
+        "billing",
+        "disconnection",
+        "mobile"
+      ]
+    },
+    {
+      "id": "j027",
+      "title": "Pooja Daryani v. M/s. Make My Trip",
+      "court": "State Consumer Disputes Redressal Commission, Delhi",
+      "year": 2018,
+      "citation": "CC/18/102",
+      "sector": "Travel",
+      "outcome": "Allowed",
+      "summary": "Booking portal held liable for failing to provide confirmed hotel booking despite receiving payment, leaving the consumer stranded in a foreign country. Heavy compensation for mental agony awarded.",
+      "key_principle": "Travel portals are fully liable for confirmed bookings and cannot shift blame solely to the hotel.",
+      "sections": [
+        "Section 2(11)",
+        "Section 39(1)(d)"
+      ],
+      "tags": [
+        "travel",
+        "hotel booking",
+        "stranded",
+        "mental agony"
+      ]
+    },
+    {
+      "id": "j028",
+      "title": "SBI Cards & Payment Services Pvt. Ltd. v. Rohidas Jadhav",
+      "court": "National Consumer Disputes Redressal Commission",
+      "year": 2010,
+      "citation": "2010 CPJ 12 NC",
+      "sector": "Banking",
+      "outcome": "Allowed",
+      "summary": "Credit card company held liable for continuing to charge annual fees and late fees after the consumer had requested card cancellation. Reversal of charges and compensation ordered.",
+      "key_principle": "Billing post-cancellation request of credit cards is an Unfair Trade Practice.",
+      "sections": [
+        "Section 2(46)",
+        "Section 2(11)"
+      ],
+      "tags": [
+        "banking",
+        "credit card",
+        "cancellation",
+        "billing",
+        "unfair trade practice"
+      ]
+    },
+    {
+      "id": "j029",
+      "title": "Post Master, Post Office v. Shyamali Das",
+      "court": "National Consumer Disputes Redressal Commission",
+      "year": 2008,
+      "citation": "2008 CPJ 28 NC",
+      "sector": "Telecom",
+      "outcome": "Allowed",
+      "summary": "Postal department held liable for delay in delivering a speed post article containing interview call letter, resulting in loss of employment opportunity.",
+      "key_principle": "Delay in speed post delivery causing tangible loss to consumer is actionable deficiency.",
+      "sections": [
+        "Section 2(11)"
+      ],
+      "tags": [
+        "postal",
+        "speed post",
+        "delay",
+        "deficiency"
+      ]
+    },
+    {
+      "id": "j030",
+      "title": "Swarn Singh v. Omaxe Chandigarh Extension Developers Pvt. Ltd.",
+      "court": "National Consumer Disputes Redressal Commission",
+      "year": 2018,
+      "citation": "2018 CPJ 15 NC",
+      "sector": "Real Estate",
+      "outcome": "Allowed",
+      "summary": "NCDRC ruled that builders cannot force allottees to accept alternative properties if the original project is delayed or abandoned. Allottees have an absolute right to a refund.",
+      "key_principle": "Builders cannot force alternative flats on buyers; refund is an absolute right upon delay.",
+      "sections": [
+        "Section 2(11)"
+      ],
+      "tags": [
+        "real estate",
+        "refund",
+        "alternative flat",
+        "builder"
+      ]
+    },
+    {
+      "id": "j031",
+      "title": "National Insurance Co. Ltd. v. Hindustan Safety Glass Works Ltd.",
+      "court": "Supreme Court of India",
+      "year": 2017,
+      "citation": "(2017) 5 SCC 776",
+      "sector": "Insurance",
+      "outcome": "Allowed",
+      "summary": "Insurance companies cannot reject claims citing delay in intimation if the delay was due to unavoidable circumstances and the claim is otherwise genuine.",
+      "key_principle": "Genuine insurance claims cannot be rejected merely on grounds of delayed intimation.",
+      "sections": [
+        "Section 2(11)"
+      ],
+      "tags": [
+        "insurance",
+        "delay in intimation",
+        "claim rejection",
+        "supreme court"
+      ]
+    },
+    {
+      "id": "j032",
+      "title": "C.C.E. v. BSNL",
+      "court": "Supreme Court of India",
+      "year": 2006,
+      "citation": "(2006) 3 SCC 1",
+      "sector": "Telecom",
+      "outcome": "Dismissed",
+      "summary": "Primarily a taxation case regarding SIM cards, but established that providing a telephone connection is a service. However, the specific consumer claim was dismissed on technical tax grounds.",
+      "key_principle": "Telecom services are recognized as 'services', though taxation rules apply differently.",
+      "sections": [
+        "Section 2(42)"
+      ],
+      "tags": [
+        "telecom",
+        "sim card",
+        "service",
+        "supreme court"
+      ]
+    },
+    {
+      "id": "j033",
+      "title": "HDFC Bank Ltd. v. Jesna Jose",
+      "court": "National Consumer Disputes Redressal Commission",
+      "year": 2020,
+      "citation": "2020 CPJ 105 NC",
+      "sector": "Banking",
+      "outcome": "Allowed",
+      "summary": "Bank held liable for unauthorized fraudulent transactions on a credit card. The commission emphasized the RBI guidelines that place zero liability on the customer if reported promptly.",
+      "key_principle": "Zero liability of consumer for unauthorized banking transactions if reported within 3 days.",
+      "sections": [
+        "Section 2(11)"
+      ],
+      "tags": [
+        "banking",
+        "credit card",
+        "fraud",
+        "unauthorized transaction",
+        "zero liability"
+      ]
+    },
+    {
+      "id": "j034",
+      "title": "Bata India Ltd. v. Dinesh Parshad Raturi",
+      "court": "State Consumer Disputes Redressal Commission, Chandigarh",
+      "year": 2019,
+      "citation": "Appeal No. 84/2019",
+      "sector": "E-commerce",
+      "outcome": "Allowed",
+      "summary": "Charging extra for paper carry bags with the brand logo is an unfair trade practice. Stores must provide free carry bags to customers.",
+      "key_principle": "Charging customers for branded carry bags constitutes an Unfair Trade Practice.",
+      "sections": [
+        "Section 2(46)"
+      ],
+      "tags": [
+        "retail",
+        "shopping",
+        "carry bag",
+        "unfair trade practice"
+      ]
+    },
+    {
+      "id": "j035",
+      "title": "SpiceJet Ltd. v. Ranju Aery",
+      "court": "National Consumer Disputes Redressal Commission",
+      "year": 2017,
+      "citation": "2017 CPJ 194 NC",
+      "sector": "Travel",
+      "outcome": "Allowed",
+      "summary": "Airline held liable for cancelling a confirmed ticket without prior intimation to the passenger. Passenger awarded full refund and compensation for mental agony and missing a scheduled event.",
+      "key_principle": "Airlines must provide prior notice for cancellations; failure to do so is actionable deficiency.",
+      "sections": [
+        "Section 2(11)"
+      ],
+      "tags": [
+        "travel",
+        "airlines",
+        "cancellation",
+        "mental agony"
+      ]
+    },
+    {
+      "id": "j036",
+      "title": "Sushma Sharma v. Omaxe Ltd.",
+      "court": "National Consumer Disputes Redressal Commission",
+      "year": 2019,
+      "citation": "2019 CPJ 33 NC",
+      "sector": "Real Estate",
+      "outcome": "Allowed",
+      "summary": "NCDRC ruled that a buyer is not bound to accept possession of an incomplete flat without an Occupancy Certificate (OC). Offering possession without OC is illegal.",
+      "key_principle": "Offering possession of a flat without a valid Occupancy Certificate is deficiency of service.",
+      "sections": [
+        "Section 2(11)",
+        "Section 2(46)"
+      ],
+      "tags": [
+        "real estate",
+        "occupancy certificate",
+        "possession",
+        "builder"
+      ]
+    },
+    {
+      "id": "j037",
+      "title": "United India Insurance Co. Ltd. v. M/s. Harchand Rai Chandan Lal",
+      "court": "Supreme Court of India",
+      "year": 2004,
+      "citation": "(2004) 8 SCC 644",
+      "sector": "Insurance",
+      "outcome": "Dismissed",
+      "summary": "Insurance claim for burglary dismissed because the policy condition specifically required 'visible marks of forced entry', which were absent. Terms of insurance contract must be strictly construed.",
+      "key_principle": "Insurance policy terms are to be strictly interpreted. If specific conditions like 'forced entry' aren't met, claim fails.",
+      "sections": [
+        "Section 2(11)"
+      ],
+      "tags": [
+        "insurance",
+        "burglary",
+        "policy terms",
+        "strict interpretation",
+        "supreme court"
+      ]
+    },
+    {
+      "id": "j038",
+      "title": "Big Bazaar (Future Retail Ltd.) v. Ashok Kumar",
+      "court": "National Consumer Disputes Redressal Commission",
+      "year": 2020,
+      "citation": "2020 CPJ 45 NC",
+      "sector": "E-commerce",
+      "outcome": "Allowed",
+      "summary": "NCDRC upheld the lower forum's order directing retail chains to stop charging extra for carry bags. It was held to be a deceptive practice to not disclose this charge before the customer reaches the billing counter.",
+      "key_principle": "Undisclosed charges for carry bags at billing counters is an Unfair Trade Practice.",
+      "sections": [
+        "Section 2(46)"
+      ],
+      "tags": [
+        "retail",
+        "carry bag",
+        "hidden charges",
+        "unfair trade practice"
+      ]
+    },
+    {
+      "id": "j039",
+      "title": "Dr. V.K. Sankaran v. State of Kerala",
+      "court": "Kerala High Court",
+      "year": 2010,
+      "citation": "2010 (3) KLT 412",
+      "sector": "Healthcare",
+      "outcome": "Allowed",
+      "summary": "Government hospitals providing free treatment do not fall under the Consumer Protection Act unless some patients are charged. However, this established the nuance of when government doctors can be held liable.",
+      "key_principle": "Free medical services at govt hospitals are generally outside COPRA, unless charges apply to some.",
+      "sections": [
+        "Section 2(42)"
+      ],
+      "tags": [
+        "healthcare",
+        "government hospital",
+        "free service",
+        "jurisdiction"
+      ]
+    },
+    {
+      "id": "j040",
+      "title": "Amazon Seller Services Pvt. Ltd. v. Vishudanand",
+      "court": "State Consumer Disputes Redressal Commission",
+      "year": 2020,
+      "citation": "FA/102/2020",
+      "sector": "E-commerce",
+      "outcome": "Allowed",
+      "summary": "Amazon held liable for a seller delivering a soap bar instead of a mobile phone. The commission ruled that Amazon failed to exercise due diligence in onboarding and monitoring sellers.",
+      "key_principle": "E-commerce marketplaces have a duty of care and cannot merely rely on safe harbor when fraud is evident.",
+      "sections": [
+        "Rule 4, E-Commerce Rules 2020",
+        "Section 2(11)"
+      ],
+      "tags": [
+        "ecommerce",
+        "fraud",
+        "wrong product",
+        "marketplace liability"
+      ]
+    },
+    {
+      "id": "j041",
+      "title": "Delhi Development Authority v. D.C. Sharma",
+      "court": "National Consumer Disputes Redressal Commission",
+      "year": 2014,
+      "citation": "2014 CPJ 15 NC",
+      "sector": "Real Estate",
+      "outcome": "Allowed",
+      "summary": "DDA held liable for double allotment of the same plot. The NCDRC directed DDA to provide an alternative plot in the same area or pay the current market value of the plot as compensation.",
+      "key_principle": "Double allotment of plots is severe deficiency. Compensation must reflect current market value.",
+      "sections": [
+        "Section 2(11)",
+        "Section 39(1)(d)"
+      ],
+      "tags": [
+        "real estate",
+        "DDA",
+        "double allotment",
+        "compensation"
+      ]
+    },
+    {
+      "id": "j042",
+      "title": "Zomato Media Pvt. Ltd. v. Abhigyan",
+      "court": "District Consumer Commission",
+      "year": 2021,
+      "citation": "CC/56/2021",
+      "sector": "E-commerce",
+      "outcome": "Allowed",
+      "summary": "Food delivery app held liable for failing to deliver food on time and refusing to refund the amount for the un-delivered food. Ordered to refund the amount and pay compensation for mental agony.",
+      "key_principle": "Food delivery apps are liable for non-delivery and arbitrary refusal of refunds.",
+      "sections": [
+        "Section 2(11)"
+      ],
+      "tags": [
+        "food delivery",
+        "ecommerce",
+        "refund",
+        "non-delivery"
+      ]
+    },
+    {
+      "id": "j043",
+      "title": "Tata Motors Ltd. v. Antonio Paulo Vaz",
+      "court": "Supreme Court of India",
+      "year": 2021,
+      "citation": "(2021) 13 SCC 503",
+      "sector": "Automobile",
+      "outcome": "Allowed",
+      "summary": "Manufacturer cannot be held liable for a dealer selling an old/used car as new unless there is evidence of the manufacturer's involvement. However, the dealer is strictly liable for the unfair trade practice.",
+      "key_principle": "Dealers selling used cars as new commit an Unfair Trade Practice. Manufacturer liability requires proof of collusion.",
+      "sections": [
+        "Section 2(46)",
+        "Section 2(11)"
+      ],
+      "tags": [
+        "automobile",
+        "dealer",
+        "fraud",
+        "unfair trade practice",
+        "supreme court"
+      ]
+    }
+  ]
+}

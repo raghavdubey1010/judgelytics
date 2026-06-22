@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Case Results — Judgelytics</title>
+  <meta name="description" content="View your consumer case analysis results — win probability, applicable legal sections, recommended forum, and similar judgements." />
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    /* SVG Gauge */
+    .gauge-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 12px 0;
+    }
+
+    .gauge-svg-wrap {
+      position: relative;
+      width: 240px;
+      height: 140px;
+    }
+
+    .gauge-svg-wrap svg { width: 100%; height: 100%; }
+
+    .gauge-center-text {
+      position: absolute;
+      bottom: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+    }
+
+    .gauge-pct {
+      font-size: 2.8rem;
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -0.04em;
+    }
+    .gauge-sub { font-size: 0.72rem; color: var(--text-muted); margin-top: 2px; }
+
+    /* Info rows */
+    .info-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .info-row:last-child { border-bottom: none; }
+    .info-row-icon { font-size: 1.2rem; flex-shrink: 0; width: 24px; text-align: center; margin-top: 2px; }
+    .info-row-label { font-size: 0.76rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase; letter-spacing: .04em; }
+    .info-row-value { font-size: 0.95rem; font-weight: 600; margin-top: 2px; }
+
+    /* Section pill */
+    .section-pill {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 16px;
+      border-radius: 8px;
+      border: 1px solid rgba(108,99,255,0.2);
+      background: rgba(108,99,255,0.06);
+      margin-bottom: 8px;
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+    .section-pill:hover { background: rgba(108,99,255,0.12); border-color: var(--primary); }
+    .section-pill-icon { font-size: 1rem; flex-shrink: 0; }
+    .section-pill-text { font-size: 0.88rem; font-weight: 600; color: var(--primary-light); }
+
+    /* Judgement mini card */
+    .judgement-mini {
+      padding: 14px;
+      border-radius: var(--radius);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      margin-bottom: 10px;
+      transition: all var(--transition);
+      cursor: pointer;
+    }
+    .judgement-mini:hover { border-color: var(--accent); background: var(--bg-card-hover); }
+    .judgement-mini-title { font-size: .85rem; font-weight: 700; margin-bottom: 4px; }
+    .judgement-mini-principle {
+      font-family: 'Crimson Pro', Georgia, serif;
+      font-style: italic;
+      font-size: .9rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      border-left: 2px solid var(--accent);
+      padding-left: 10px;
+      margin-top: 6px;
+    }
+
+    /* Timeline step */
+    .timeline { display: flex; flex-direction: column; gap: 0; }
+    .timeline-item {
+      display: flex;
+      gap: 14px;
+      padding-bottom: 20px;
+      position: relative;
+    }
+    .timeline-item:last-child { padding-bottom: 0; }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: 15px;
+      top: 32px;
+      bottom: 0;
+      width: 1px;
+      background: var(--border);
+    }
+    .timeline-item:last-child::before { display: none; }
+    .timeline-dot {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: var(--bg-secondary);
+      border: 2px solid var(--primary);
+      display: flex; align-items: center; justify-content: center;
+      font-size: .85rem;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+    }
+    .timeline-content { padding-top: 4px; }
+    .timeline-title { font-size: .88rem; font-weight: 700; }
+    .timeline-desc { font-size: .8rem; color: var(--text-muted); margin-top: 3px; line-height: 1.5; }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    @media (max-width: 900px) {
+      .result-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <div class="navbar-inner">
+    <a href="index.html" class="navbar-brand">
+      <div class="brand-icon">⚖️</div>
+      <span class="brand-name">Judge<span>lytics</span></span>
+    </a>
+    <ul class="navbar-links">
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="new-case.html">New Case</a></li>
+      <li><a href="legal-library.html">Legal Library</a></li>
+      <li><a href="chat.html">AI Assistant</a></li>
+    </ul>
+    <div class="flex gap-10" style="align-items:center;">
+      <button onclick="Auth.logout()" class="btn btn-ghost btn-sm">Sign Out</button>
+    </div>
+  </div>
+</nav>
+
+<!-- Loading skeleton -->
+<div id="loadingState" class="page-pad">
+  <div class="container" style="max-width:900px;">
+    <div class="skeleton" style="height:32px;width:200px;border-radius:8px;margin-bottom:32px;"></div>
+    <div class="result-grid">
+      <div class="skeleton" style="height:400px;border-radius:20px;"></div>
+      <div class="flex-col gap-16">
+        <div class="skeleton" style="height:180px;border-radius:20px;"></div>
+        <div class="skeleton" style="height:200px;border-radius:20px;"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Main content (hidden until loaded) -->
+<main id="mainContent" class="page-pad" style="display:none;position:relative;z-index:1;">
+  <div class="container" style="max-width:960px;">
+
+    <div class="mb-24 flex-between" style="flex-wrap:wrap;gap:12px;">
+      <div>
+        <a href="dashboard.html" style="font-size:.85rem;color:var(--text-muted);">← Back to Dashboard</a>
+        <h2 style="margin-top:8px;">Case Analysis Results</h2>
+        <p style="font-size:.85rem;color:var(--text-muted);margin-top:4px;" id="caseIdLabel"></p>
+      </div>
+      <div class="flex gap-10">
+        <button class="btn btn-ghost btn-sm" onclick="window.location.href='new-case.html'">+ New Case</button>
+        <button class="btn btn-outline btn-sm" id="downloadBtn">📄 Download PDF Report</button>
+      </div>
+    </div>
+
+    <div class="result-grid">
+
+      <!-- LEFT: Gauge + Quick Info -->
+      <div class="flex-col gap-20">
+
+        <!-- Win Probability Gauge -->
+        <div class="card card-lg" style="text-align:center;">
+          <div style="font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-muted);margin-bottom:16px;">Win Probability</div>
+
+          <div class="gauge-container">
+            <div class="gauge-svg-wrap">
+              <svg viewBox="0 0 240 140" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="gaugeFill" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#EF4444" />
+                    <stop offset="50%" stop-color="#F59E0B" />
+                    <stop offset="100%" stop-color="#10B981" />
+                  </linearGradient>
+                </defs>
+                <!-- Track -->
+                <path d="M 30 120 A 90 90 0 0 1 210 120"
+                      fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="18" stroke-linecap="round"/>
+                <!-- Colored fill -->
+                <path id="gaugeArc" d="M 30 120 A 90 90 0 0 1 210 120"
+                      fill="none" stroke="url(#gaugeFill)" stroke-width="18" stroke-linecap="round"
+                      stroke-dasharray="283" stroke-dashoffset="283"
+                      style="transition: stroke-dashoffset 1.8s cubic-bezier(0.4,0,0.2,1);"/>
+                <!-- Needle indicator -->
+                <circle id="gaugeNeedle" cx="30" cy="120" r="6" fill="#fff"
+                        style="transition: all 1.8s cubic-bezier(0.4,0,0.2,1);"/>
+              </svg>
+
+              <div class="gauge-center-text">
+                <div class="gauge-pct" id="gaugePct">—</div>
+                <div class="gauge-sub">Win Probability</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex-center gap-12 mt-8">
+            <span id="outcomeBadge"></span>
+            <span id="confidenceBadge"></span>
+          </div>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="card">
+          <div class="info-row">
+            <div class="info-row-icon">🏛️</div>
+            <div>
+              <div class="info-row-label">Recommended Forum</div>
+              <div class="info-row-value" id="infoForum">—</div>
+            </div>
+          </div>
+          <div class="info-row">
+            <div class="info-row-icon">💰</div>
+            <div>
+              <div class="info-row-label">Estimated Filing Fee</div>
+              <div class="info-row-value" id="infoFee">—</div>
+            </div>
+          </div>
+          <div class="info-row">
+            <div class="info-row-icon">💪</div>
+            <div>
+              <div class="info-row-label">Evidence Strength</div>
+              <div class="info-row-value" id="infoEvidence">—</div>
+            </div>
+          </div>
+          <div class="info-row">
+            <div class="info-row-icon">📚</div>
+            <div>
+              <div class="info-row-label">Similar Cases in DB</div>
+              <div class="info-row-value" id="infoSimilar">—</div>
+            </div>
+          </div>
+          <div class="info-row">
+            <div class="info-row-icon">🤖</div>
+            <div>
+              <div class="info-row-label">Models Used</div>
+              <div class="info-row-value" style="font-size:.82rem;color:var(--text-muted);" id="infoModels">—</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Next Steps -->
+        <div class="card">
+          <h4 style="margin-bottom:20px;">📋 Recommended Next Steps</h4>
+          <div class="timeline" id="nextSteps"></div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT: Sections + Judgements + Actions -->
+      <div class="flex-col gap-20">
+
+        <!-- Applicable Legal Sections -->
+        <div class="card">
+          <h4 style="margin-bottom:4px;">📜 Applicable Legal Sections</h4>
+          <p style="font-size:.82rem;color:var(--text-muted);margin-bottom:20px;">Sections of IPC/BNS/COPRA relevant to your case</p>
+          <div id="sectionsList"></div>
+          <a href="legal-library.html" class="btn btn-ghost btn-sm mt-16" style="display:inline-flex;">Browse Full Law Library →</a>
+        </div>
+
+        <!-- Similar Landmark Judgements -->
+        <div class="card">
+          <h4 style="margin-bottom:4px;">⚖️ Relevant Landmark Judgements</h4>
+          <p style="font-size:.82rem;color:var(--text-muted);margin-bottom:20px;">Similar cases decided by Indian consumer courts</p>
+          <div id="judgementsList"></div>
+          <a href="legal-library.html#judgements" class="btn btn-ghost btn-sm mt-16" style="display:inline-flex;">View All Judgements →</a>
+        </div>
+
+        <!-- Disclaimer -->
+        <div style="background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.2);border-radius:var(--radius);padding:16px 20px;">
+          <div style="font-weight:700;font-size:.85rem;color:var(--accent);margin-bottom:6px;">⚠️ Educational Disclaimer</div>
+          <p style="font-size:.8rem;color:var(--text-secondary);line-height:1.6;">
+            This analysis is generated by AI trained on historical data and is for educational purposes only.
+            Win probability is a statistical estimate, not a legal guarantee. Please consult a qualified consumer
+            law advocate before filing a case.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</main>
+
+<script src="js/api.js"></script>
+<script src="js/auth.js"></script>
+<script>
+  if (!Auth.requireAuth()) throw '';
+  initNavbar();
+
+  const caseId = new URLSearchParams(window.location.search).get('id');
+  if (!caseId) window.location.href = 'dashboard.html';
+
+  // ── Animate gauge ──────────────────────────────────────────────
+  function animateGauge(pct) {
+    const arc = document.getElementById('gaugeArc');
+    const needle = document.getElementById('gaugeNeedle');
+    const total = 283;
+    const offset = total - (total * pct / 100);
+
+    setTimeout(() => {
+      arc.style.strokeDashoffset = offset;
+
+      // Move needle along arc
+      const angle = -180 + (180 * pct / 100);
+      const rad = (angle * Math.PI) / 180;
+      const cx = 120 + 90 * Math.cos(rad);
+      const cy = 120 + 90 * Math.sin(rad);
+      needle.setAttribute('cx', cx.toFixed(1));
+      needle.setAttribute('cy', cy.toFixed(1));
+    }, 200);
+
+    // Count-up animation
+    const el = document.getElementById('gaugePct');
+    let current = 0;
+    const step = pct / 60;
+    const color = pct >= 65 ? 'var(--success)' : pct >= 45 ? 'var(--accent)' : 'var(--danger-light)';
+    el.style.color = color;
+    arc.style.stroke = color;
+    needle.style.fill = color;
+
+    const timer = setInterval(() => {
+      current = Math.min(current + step, pct);
+      el.textContent = Math.round(current) + '%';
+      if (current >= pct) clearInterval(timer);
+    }, 16);
+  }
+
+  // ── Next steps based on outcome ────────────────────────────────
+  function buildNextSteps(outcome, forum, fee) {
+    const steps = [
+      { icon: '📝', title: 'Collect All Evidence', desc: 'Gather purchase receipts, invoices, warranty cards, email/WhatsApp correspondence, and photos of defective products.' },
+      { icon: '📧', title: 'Send Legal Notice', desc: `Send a registered notice to the opposite party giving 15-30 days to resolve. Keep proof of delivery.` },
+      { icon: '💻', title: 'File Online at eDaakhil', desc: `Visit edaakhil.nic.in to file your complaint digitally at the ${forum}. Filing fee: ${fee}.` },
+      { icon: '⚖️', title: 'Attend Hearings', desc: 'Appear on scheduled hearing dates with all original documents. You can represent yourself (no lawyer mandatory for District Commission).' },
+    ];
+
+    if (outcome === 'Allowed' || outcome === 'Partially Allowed') {
+      steps.push({ icon: '🏆', title: 'Enforce the Order', desc: 'If order is in your favor, file an Execution Application if the opposite party fails to comply within 30 days.' });
+    }
+
+    const container = document.getElementById('nextSteps');
+    steps.forEach(s => {
+      container.innerHTML += `
+        <div class="timeline-item">
+          <div class="timeline-dot">${s.icon}</div>
+          <div class="timeline-content">
+            <div class="timeline-title">${s.title}</div>
+            <div class="timeline-desc">${s.desc}</div>
+          </div>
+        </div>
+      `;
+    });
+  }
+
+  // ── Render sections ────────────────────────────────────────────
+  function renderSections(sections) {
+    const container = document.getElementById('sectionsList');
+    if (!sections || !sections.length) {
+      container.innerHTML = '<p style="color:var(--text-muted);font-size:.88rem;">No applicable sections identified.</p>';
+      return;
+    }
+    sections.forEach(s => {
+      container.innerHTML += `
+        <div class="section-pill" onclick="window.location.href='legal-library.html'">
+          <span class="section-pill-icon">📜</span>
+          <span class="section-pill-text">${s}</span>
+          <span style="margin-left:auto;color:var(--text-muted);font-size:.8rem;">→</span>
+        </div>
+      `;
+    });
+  }
+
+  // ── Render judgements ──────────────────────────────────────────
+  async function renderJudgements(sector) {
+    try {
+      const data = await LegalAPI.judgements('', sector, '');
+      const container = document.getElementById('judgementsList');
+      const items = data.judgements.slice(0, 3);
+
+      if (!items.length) {
+        container.innerHTML = '<p style="color:var(--text-muted);font-size:.88rem;">Explore the legal library for relevant judgements.</p>';
+        return;
+      }
+
+      items.forEach(j => {
+        container.innerHTML += `
+          <div class="judgement-mini" onclick="window.location.href='legal-library.html#j-${j.id}'">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+              <span style="font-size:.72rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.04em;">${j.court} · ${j.year}</span>
+              ${Utils.outcomeBadge(j.outcome)}
+            </div>
+            <div class="judgement-mini-title">${j.title}</div>
+            <div class="judgement-mini-principle">${j.key_principle}</div>
+          </div>
+        `;
+      });
+    } catch {}
+  }
+
+  // ── Download PDF ───────────────────────────────────────────────
+  document.getElementById('downloadBtn').addEventListener('click', async () => {
+    const btn = document.getElementById('downloadBtn');
+    btn.disabled = true;
+    btn.textContent = '⏳ Generating…';
+
+    try {
+      const report = await ReportAPI.generate(caseId);
+      const blob   = await ReportAPI.downloadDirect(report.report_id);
+      Utils.downloadBlob(blob, report.file_name);
+      Toast.success('PDF Downloaded!', 'Your case report has been saved.');
+    } catch (err) {
+      Toast.error('Download failed', err.message);
+    } finally {
+      btn.disabled = false;
+      btn.textContent = '📄 Download PDF Report';
+    }
+  });
+
+  // ── Load case data ─────────────────────────────────────────────
+  async function loadCase() {
+    try {
+      const data = await CaseAPI.detail(caseId);
+      const pred = data.prediction;
+
+      document.getElementById('loadingState').style.display = 'none';
+      document.getElementById('mainContent').style.display = '';
+      document.getElementById('caseIdLabel').textContent = `Case ID: ${data.case_id} · ${Utils.formatDateTime(data.created_at)}`;
+
+      // Gauge
+      animateGauge(pred.win_probability_pct || 0);
+
+      // Badges
+      document.getElementById('outcomeBadge').outerHTML = `<span id="outcomeBadge">${Utils.outcomeBadge(pred.outcome)}</span>`;
+      document.getElementById('confidenceBadge').outerHTML = `<span id="confidenceBadge">${Utils.confidenceBadge(pred.confidence)}</span>`;
+
+      // Info rows
+      document.getElementById('infoForum').textContent    = pred.recommended_forum || '—';
+      document.getElementById('infoFee').textContent      = pred.filing_fee || '—';
+      document.getElementById('infoSimilar').textContent  = `${pred.similar_cases_count || 0} cases`;
+      document.getElementById('infoModels').textContent   = (pred.models_used || []).join(', ') || '—';
+
+      // Evidence strength with color
+      const evStr = pred.evidence_strength || '—';
+      const evColor = { Strong: 'var(--success)', Moderate: 'var(--accent)', Weak: 'var(--danger-light)' }[evStr] || 'var(--text-primary)';
+      document.getElementById('infoEvidence').innerHTML = `<span style="color:${evColor}">${evStr}</span>`;
+
+      // Sections
+      renderSections(pred.applicable_sections);
+
+      // Next steps
+      buildNextSteps(pred.outcome, pred.recommended_forum, pred.filing_fee);
+
+      // Judgements (best-effort)
+      renderJudgements('');
+      document.title = `${data.case_id} Results — Judgelytics`;
+
+    } catch (err) {
+      document.getElementById('loadingState').innerHTML = `
+        <div class="container" style="max-width:600px">
+          <div class="empty-state">
+            <div class="empty-icon">❌</div>
+            <div class="empty-title">Could not load case</div>
+            <div class="empty-sub">${err.message}</div>
+            <a href="dashboard.html" class="btn btn-primary mt-16">Back to Dashboard</a>
+          </div>
+        </div>`;
+    }
+  }
+
+  loadCase();
+</script>
+</body>
+</html>

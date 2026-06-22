@@ -1,0 +1,67 @@
+# Judgelytics - Docker Compose Configuration
+# Purpose: Complete local development and deployment setup
+# Includes: PostgreSQL, FastAPI backend with ML models
+
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:16-alpine
+    container_name: judgelytics-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: judgelytics_password_2026
+      POSTGRES_DB: judgelytics
+      POSTGRES_INITDB_ARGS: "-c max_connections=200"
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - judgelytics-network
+
+  # FastAPI Backend Application
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: judgelytics-api
+    environment:
+      DATABASE_URL: "postgresql+asyncpg://postgres:judgelytics_password_2026@postgres:5432/judgelytics"
+      SECRET_KEY: "your-super-secret-jwt-key-change-this-in-production-2026"
+      DEBUG: "false"
+      RELOAD: "false"
+      ML_MODELS_DIR: "/app/ml_pipeline/saved_models"
+    ports:
+      - "8000:8000"
+    volumes:
+      # Mount ML models from host
+      - ./ml_pipeline/saved_models:/app/ml_pipeline/saved_models:ro
+      # Mount data directory
+      - ./ml_pipeline/data:/app/ml_pipeline/data:ro
+    depends_on:
+      postgres:
+        condition: service_healthy
+    command: "uvicorn app.main:app --host 0.0.0.0 --port 8000"
+    networks:
+      - judgelytics-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  judgelytics-network:
+    driver: bridge

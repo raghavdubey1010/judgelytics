@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Legal Library — Judgelytics</title>
+  <meta name="description" content="Browse IPC, BNS, COPRA 2019, IT Act, and RERA sections relevant to Indian consumer cases. Search landmark Supreme Court and NCDRC judgements." />
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    .library-layout {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 28px;
+      align-items: start;
+    }
+
+    /* Sidebar */
+    .sidebar { position: sticky; top: calc(var(--nav-h) + 24px); }
+
+    .filter-group { margin-bottom: 24px; }
+    .filter-group-title {
+      font-size: .72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+
+    .filter-pill {
+      display: block;
+      width: 100%;
+      padding: 8px 12px;
+      border: none;
+      background: none;
+      color: var(--text-secondary);
+      font-size: .84rem;
+      font-family: 'Inter', sans-serif;
+      border-radius: 6px;
+      cursor: pointer;
+      text-align: left;
+      transition: all var(--transition);
+    }
+    .filter-pill:hover { background: var(--bg-card); color: var(--text-primary); }
+    .filter-pill.active { background: rgba(108,99,255,0.15); color: var(--primary-light); font-weight: 600; }
+
+    /* Main area */
+    .section-detail-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+      display: flex;
+      align-items: flex-end;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(8px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--transition);
+    }
+    .section-detail-modal.open { opacity: 1; pointer-events: all; }
+
+    .section-detail-sheet {
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border);
+      border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+      padding: 32px;
+      width: 100%;
+      max-width: 700px;
+      margin: 0 auto;
+      transform: translateY(100%);
+      transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+    .section-detail-modal.open .section-detail-sheet { transform: translateY(0); }
+
+    .sheet-handle {
+      width: 40px; height: 4px;
+      background: var(--border);
+      border-radius: 2px;
+      margin: 0 auto 24px;
+    }
+
+    @media (max-width: 900px) {
+      .library-layout { grid-template-columns: 1fr; }
+      .sidebar { position: static; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <div class="navbar-inner">
+    <a href="index.html" class="navbar-brand">
+      <div class="brand-icon">⚖️</div>
+      <span class="brand-name">Judge<span>lytics</span></span>
+    </a>
+    <ul class="navbar-links">
+      <li><a href="dashboard.html" id="navDashboard" style="display:none">Dashboard</a></li>
+      <li><a href="legal-library.html" class="active">Legal Library</a></li>
+      <li><a href="chat.html">AI Assistant</a></li>
+    </ul>
+    <div id="navActions">
+      <a href="login.html" class="btn btn-ghost btn-sm" id="navLogin">Sign In</a>
+    </div>
+  </div>
+</nav>
+
+<div class="page-pad" style="position:relative;z-index:1;">
+  <div class="container">
+
+    <!-- Header -->
+    <div class="mb-32">
+      <div class="hero-badge" style="margin-bottom:12px;display:inline-flex;">📚 Indian Consumer Law Database</div>
+      <h1>Legal Library</h1>
+      <p style="color:var(--text-secondary);margin-top:8px;max-width:600px;">
+        Browse IPC, BNS, COPRA 2019, IT Act, and RERA provisions relevant to consumer cases.
+        Search landmark Supreme Court and NCDRC judgements.
+      </p>
+    </div>
+
+    <!-- Global search -->
+    <div class="search-bar mb-32" style="max-width:560px;">
+      <span class="search-icon">🔍</span>
+      <input class="form-control" id="globalSearch" type="text"
+             placeholder="Search sections, judgements, keywords… (e.g. 'insurance', 'Section 35')" />
+    </div>
+
+    <!-- Tabs -->
+    <div class="tabs mb-28" style="max-width:380px;">
+      <button class="tab-btn active" id="tabSections" onclick="switchTab('sections')">📜 Law Sections</button>
+      <button class="tab-btn" id="tabJudgements" onclick="switchTab('judgements')">⚖️ Judgements</button>
+    </div>
+
+    <div class="library-layout">
+
+      <!-- Sidebar Filters -->
+      <aside class="sidebar">
+        <div class="card card-sm">
+          <!-- Sections filters -->
+          <div id="sidebarSections">
+            <div class="filter-group">
+              <div class="filter-group-title">Act / Legislation</div>
+              <button class="filter-pill active" data-act="" onclick="filterAct(this)">All Acts</button>
+              <button class="filter-pill" data-act="COPRA 2019" onclick="filterAct(this)">COPRA 2019</button>
+              <button class="filter-pill" data-act="BNS 2023" onclick="filterAct(this)">BNS 2023</button>
+              <button class="filter-pill" data-act="IT Act 2000" onclick="filterAct(this)">IT Act 2000</button>
+              <button class="filter-pill" data-act="RERA 2016" onclick="filterAct(this)">RERA 2016</button>
+              <button class="filter-pill" data-act="E-Commerce Rules 2020" onclick="filterAct(this)">E-Commerce Rules</button>
+            </div>
+            <div class="filter-group">
+              <div class="filter-group-title">Category</div>
+              <button class="filter-pill active-cat" data-cat="" onclick="filterCat(this)">All Categories</button>
+              <button class="filter-pill" data-cat="Definition" onclick="filterCat(this)">Definitions</button>
+              <button class="filter-pill" data-cat="Filing" onclick="filterCat(this)">Filing / Jurisdiction</button>
+              <button class="filter-pill" data-cat="Procedure" onclick="filterCat(this)">Procedure</button>
+              <button class="filter-pill" data-cat="Appeal" onclick="filterCat(this)">Appeal</button>
+              <button class="filter-pill" data-cat="Penalty" onclick="filterCat(this)">Penalty</button>
+              <button class="filter-pill" data-cat="Liability" onclick="filterCat(this)">Liability</button>
+              <button class="filter-pill" data-cat="Criminal" onclick="filterCat(this)">Criminal</button>
+              <button class="filter-pill" data-cat="Cyber" onclick="filterCat(this)">Cyber / IT</button>
+              <button class="filter-pill" data-cat="ADR" onclick="filterCat(this)">ADR / Mediation</button>
+            </div>
+          </div>
+
+          <!-- Judgement filters -->
+          <div id="sidebarJudgements" style="display:none;">
+            <div class="filter-group">
+              <div class="filter-group-title">Sector</div>
+              <button class="filter-pill active-sector" data-sec="" onclick="filterSector(this)">All Sectors</button>
+              <button class="filter-pill" data-sec="Healthcare" onclick="filterSector(this)">Healthcare</button>
+              <button class="filter-pill" data-sec="Real Estate" onclick="filterSector(this)">Real Estate</button>
+              <button class="filter-pill" data-sec="E-commerce" onclick="filterSector(this)">E-commerce</button>
+              <button class="filter-pill" data-sec="Banking" onclick="filterSector(this)">Banking</button>
+              <button class="filter-pill" data-sec="Insurance" onclick="filterSector(this)">Insurance</button>
+              <button class="filter-pill" data-sec="Automobile" onclick="filterSector(this)">Automobile</button>
+              <button class="filter-pill" data-sec="Travel" onclick="filterSector(this)">Travel</button>
+              <button class="filter-pill" data-sec="Telecom" onclick="filterSector(this)">Telecom</button>
+            </div>
+            <div class="filter-group">
+              <div class="filter-group-title">Outcome</div>
+              <button class="filter-pill active-outcome" data-out="" onclick="filterOutcome(this)">All Outcomes</button>
+              <button class="filter-pill" data-out="Allowed" onclick="filterOutcome(this)">✅ Allowed</button>
+              <button class="filter-pill" data-out="Dismissed" onclick="filterOutcome(this)">❌ Dismissed</button>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main content -->
+      <div>
+
+        <!-- Sections panel -->
+        <div id="panelSections">
+          <div id="sectionsCount" style="font-size:.82rem;color:var(--text-muted);margin-bottom:16px;"></div>
+          <div id="sectionsList" class="flex-col gap-12"></div>
+          <div id="sectionsEmpty" class="empty-state" style="display:none;">
+            <div class="empty-icon">🔍</div>
+            <div class="empty-title">No sections found</div>
+            <div class="empty-sub">Try a different search term or clear filters.</div>
+          </div>
+        </div>
+
+        <!-- Judgements panel -->
+        <div id="panelJudgements" style="display:none;">
+          <div id="judgementsCount" style="font-size:.82rem;color:var(--text-muted);margin-bottom:16px;"></div>
+          <div id="judgementsList" class="flex-col gap-16"></div>
+          <div id="judgementsEmpty" class="empty-state" style="display:none;">
+            <div class="empty-icon">⚖️</div>
+            <div class="empty-title">No judgements found</div>
+            <div class="empty-sub">Try different search terms or sector filters.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Section Detail Sheet -->
+<div class="section-detail-modal" id="detailModal" onclick="if(event.target===this)closeModal()">
+  <div class="section-detail-sheet">
+    <div class="sheet-handle"></div>
+    <div id="detailContent"></div>
+  </div>
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/auth.js"></script>
+<script>
+  initNavbar();
+
+  // Update navbar if logged in
+  if (Auth.isLoggedIn()) {
+    document.getElementById('navDashboard').style.display = '';
+    document.getElementById('navLogin').textContent = 'Dashboard';
+    document.getElementById('navLogin').href = 'dashboard.html';
+  }
+
+  // ── State ──────────────────────────────────────────────────────
+  let currentTab    = 'sections';
+  let searchQ       = '';
+  let activeAct     = '';
+  let activeCat     = '';
+  let activeSector  = '';
+  let activeOutcome = '';
+
+  // ── Tab switch ──────────────────────────────────────────────────
+  function switchTab(tab) {
+    currentTab = tab;
+    document.getElementById('tabSections').classList.toggle('active', tab === 'sections');
+    document.getElementById('tabJudgements').classList.toggle('active', tab === 'judgements');
+    document.getElementById('panelSections').style.display    = tab === 'sections'    ? '' : 'none';
+    document.getElementById('panelJudgements').style.display  = tab === 'judgements'  ? '' : 'none';
+    document.getElementById('sidebarSections').style.display  = tab === 'sections'    ? '' : 'none';
+    document.getElementById('sidebarJudgements').style.display= tab === 'judgements'  ? '' : 'none';
+    load();
+  }
+
+  // ── Filters ────────────────────────────────────────────────────
+  function filterAct(btn) {
+    document.querySelectorAll('[data-act]').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeAct = btn.dataset.act;
+    load();
+  }
+  function filterCat(btn) {
+    document.querySelectorAll('[data-cat]').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeCat = btn.dataset.cat;
+    load();
+  }
+  function filterSector(btn) {
+    document.querySelectorAll('[data-sec]').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeSector = btn.dataset.sec;
+    load();
+  }
+  function filterOutcome(btn) {
+    document.querySelectorAll('[data-out]').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeOutcome = btn.dataset.out;
+    load();
+  }
+
+  // ── Search ─────────────────────────────────────────────────────
+  document.getElementById('globalSearch').addEventListener('input', Utils.debounce(() => {
+    searchQ = document.getElementById('globalSearch').value.trim();
+    load();
+  }, 350));
+
+  // ── Render Sections ────────────────────────────────────────────
+  function renderSections(sections) {
+    const list  = document.getElementById('sectionsList');
+    const count = document.getElementById('sectionsCount');
+    const empty = document.getElementById('sectionsEmpty');
+    list.innerHTML = '';
+
+    if (!sections.length) { empty.style.display = ''; count.textContent = ''; return; }
+    empty.style.display = 'none';
+    count.textContent = `Showing ${sections.length} section${sections.length !== 1 ? 's' : ''}`;
+
+    sections.forEach(s => {
+      const card = document.createElement('div');
+      card.className = 'card section-card';
+      card.innerHTML = `
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:8px;">
+          <div>
+            <div class="section-act">${s.act}</div>
+            <div class="section-number">${s.number}</div>
+          </div>
+          <span class="badge badge-muted">${s.category}</span>
+        </div>
+        <div class="section-title">${s.title}</div>
+        <div class="section-desc">${s.description.substring(0, 160)}${s.description.length > 160 ? '…' : ''}</div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;">
+          ${s.keywords.slice(0,4).map(k => `<span class="tag">${k}</span>`).join('')}
+        </div>
+        <button class="btn btn-sm btn-ghost mt-12" onclick="showSectionDetail(${JSON.stringify(s).replace(/"/g,"'")})">
+          Read Full Section →
+        </button>
+      `;
+      list.appendChild(card);
+    });
+  }
+
+  // ── Render Judgements ──────────────────────────────────────────
+  function renderJudgements(judgements) {
+    const list  = document.getElementById('judgementsList');
+    const count = document.getElementById('judgementsCount');
+    const empty = document.getElementById('judgementsEmpty');
+    list.innerHTML = '';
+
+    if (!judgements.length) { empty.style.display = ''; count.textContent = ''; return; }
+    empty.style.display = 'none';
+    count.textContent = `Showing ${judgements.length} judgement${judgements.length !== 1 ? 's' : ''}`;
+
+    judgements.forEach(j => {
+      const card = document.createElement('div');
+      card.className = 'card judgement-card';
+      card.id = `j-${j.id}`;
+      card.innerHTML = `
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:8px;">
+          <div>
+            <div class="judgement-court">${j.court} · ${j.year}</div>
+            <div class="judgement-title">${j.title}</div>
+          </div>
+          <div style="display:flex;gap:6px;flex-shrink:0;">
+            ${Utils.outcomeBadge(j.outcome)}
+            <span class="badge badge-muted">${j.sector}</span>
+          </div>
+        </div>
+        <div class="judgement-principle">${j.key_principle}</div>
+        <p style="font-size:.85rem;color:var(--text-secondary);margin-top:12px;line-height:1.65;">${j.summary}</p>
+        <div style="margin-top:14px;">
+          <div style="font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--text-muted);margin-bottom:6px;font-weight:700;">Applicable Sections</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;">
+            ${j.sections.map(s => `<span class="tag">${s}</span>`).join('')}
+          </div>
+        </div>
+        <div style="margin-top:12px;display:flex;flex-wrap:wrap;gap:6px;">
+          ${j.tags.slice(0,5).map(t => `<span class="badge badge-muted">${t}</span>`).join('')}
+        </div>
+        <div style="margin-top:12px;font-size:.78rem;color:var(--text-muted);">Citation: <em>${j.citation}</em></div>
+      `;
+      list.appendChild(card);
+    });
+  }
+
+  // ── Section detail modal ───────────────────────────────────────
+  function showSectionDetail(section) {
+    // Restore quotes
+    if (typeof section === 'string') {
+      section = JSON.parse(section.replace(/'/g, '"'));
+    }
+    document.getElementById('detailContent').innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:20px;">
+        <div>
+          <div class="section-act" style="margin-bottom:4px;">${section.act}</div>
+          <h3>${section.number}</h3>
+        </div>
+        <button onclick="closeModal()" style="background:var(--bg-card);border:1px solid var(--border);border-radius:8px;width:32px;height:32px;cursor:pointer;color:var(--text-muted);font-size:1rem;">✕</button>
+      </div>
+      <div class="section-title" style="font-size:1.1rem;margin-bottom:16px;">${section.title}</div>
+      <p style="color:var(--text-secondary);line-height:1.75;margin-bottom:20px;">${section.description}</p>
+      <div style="margin-bottom:16px;">
+        <div style="font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-muted);margin-bottom:8px;">Keywords</div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;">
+          ${section.keywords.map(k => `<span class="tag">${k}</span>`).join('')}
+        </div>
+      </div>
+      <div style="display:flex;gap:10px;margin-top:24px;">
+        <span class="badge badge-primary">${section.act}</span>
+        <span class="badge badge-muted">${section.category}</span>
+      </div>
+    `;
+    document.getElementById('detailModal').classList.add('open');
+  }
+
+  function closeModal() {
+    document.getElementById('detailModal').classList.remove('open');
+  }
+
+  // ESC to close
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+  // ── Load data ──────────────────────────────────────────────────
+  async function load() {
+    if (currentTab === 'sections') {
+      try {
+        const data = await LegalAPI.sections(searchQ, activeAct, activeCat);
+        renderSections(data.sections);
+      } catch (err) {
+        Toast.error('Load failed', err.message);
+      }
+    } else {
+      try {
+        const data = await LegalAPI.judgements(searchQ, activeSector, activeOutcome);
+        renderJudgements(data.judgements);
+      } catch (err) {
+        Toast.error('Load failed', err.message);
+      }
+    }
+  }
+
+  // Initial load
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.has('q')) {
+    searchQ = urlParams.get('q');
+    document.getElementById('globalSearch').value = searchQ;
+  }
+  load();
+
+  // Handle hash for judgements tab
+  if (window.location.hash.startsWith('#j-')) {
+    switchTab('judgements');
+    setTimeout(() => {
+      const el = document.getElementById(window.location.hash.slice(1));
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 800);
+  }
+</script>
+</body>
+</html>
